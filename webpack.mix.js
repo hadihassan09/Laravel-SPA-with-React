@@ -12,4 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.react('resources/js/app.js', 'public/js')
+    .react('resources/js/expenseTracker/app.js', 'public/js/expenseTracker/')
+    .sass('resources/sass/expenseTracker/app.scss', 'public/css/expenseTracker/')
     .sass('resources/sass/app.scss', 'public/css');
