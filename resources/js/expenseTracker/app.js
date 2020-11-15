@@ -1,5 +1,4 @@
 require('../bootstrap');
-
 import React from "react";
 import ReactDOM from 'react-dom';
 
@@ -10,33 +9,31 @@ import {
     Link
 } from "react-router-dom";
 
+import Login from './componenets/Login';
+
 class App extends React.Component {
     render() {
         return (
             <Router>
                 <div>
-                    <nav>
-                        <ul>
-                            <li>
-                                <Link to="/">Home</Link>
+                    <nav className="navbar navbar-expand navbar-dark bg-dark">
+                        <Link to={"/"} className="navbar-brand">
+                            Expense Tracker
+                        </Link>
+                            <li className="nav-item">
+                                <Link to="/" className="nav-link">Home</Link>
                             </li>
-                            <li>
-                                <Link to="/login">Login</Link>
+                            <li className="nav-item">
+                                <Link to={'/login'} className="nav-link">Login</Link>
                             </li>
-                            <li>
-                                <Link to="/users">Users</Link>
+                            <li className="nav-item">
+                                <Link to="/users" className="nav-link">Users</Link>
                             </li>
-                        </ul>
                     </nav>
-                    <switch>
-                        <Route path="/">
-                            XD
-                        </Route>
-                        {/*<Route exact path='/' component={Dashboard} />*/}
-                        <Route path="/login">
-                            //Login
-                        </Route>
-                    </switch>
+                    <Switch>
+                        <Route exact path="/" />
+                        <Route exact path='/login' component={Login} />
+                    </Switch>
                 </div>
             </Router>
         )
