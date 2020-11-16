@@ -19,9 +19,7 @@ const Login = (props) => {
                 }).then(response => {
                     if (response.status === 204) {
                         setToHome(true);
-                        axios.get('api/user').then(response => {
-                            console.log(response.data);
-                        })
+:
                     }
                 }).catch(error => {
                     if (error.response && error.response.status === 422) {
