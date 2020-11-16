@@ -9,10 +9,19 @@ class Home extends React.Component{
 
     render() {
         return(
-            <>
-                Hello This is Home
-                {console.log(appState)}
-            </>
+            <div id="mainBody">
+                <div className="welcome ">
+                    <div className="title m-b-md">Expense Tracker</div>
+                    <div className="links">
+                        <p>
+                            Done By:
+                            <a href="https://www.linkedin.com/in/hassanhadi" target="_blank">
+                                Hadi Hassan
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
