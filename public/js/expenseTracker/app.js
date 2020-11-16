@@ -69845,7 +69845,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _componenets_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./componenets/Login */ "./resources/js/expenseTracker/componenets/Login.js");
+/* harmony import */ var _appState__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./appState */ "./resources/js/expenseTracker/appState.js");
+/* harmony import */ var _componenets_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./componenets/Login */ "./resources/js/expenseTracker/componenets/Login.js");
+/* harmony import */ var _componenets_Home__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./componenets/Home */ "./resources/js/expenseTracker/componenets/Home.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69875,48 +69877,91 @@ __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
+
 var App = /*#__PURE__*/function (_React$Component) {
   _inherits(App, _React$Component);
 
   var _super = _createSuper(App);
 
-  function App() {
+  function App(props) {
+    var _this;
+
     _classCallCheck(this, App);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      isLoggedIn: _appState__WEBPACK_IMPORTED_MODULE_3__["default"].isLoggedIn
+    };
+    return _this;
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      setInterval(function () {
+        _this2.setState({
+          isLoggedIn: _appState__WEBPACK_IMPORTED_MODULE_3__["default"].isLoggedIn
+        });
+      }, 2000);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
-        className: "navbar navbar-expand navbar-dark bg-dark"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/",
-        className: "navbar-brand"
-      }, "Expense Tracker"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/",
-        className: "nav-link"
-      }, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: '/login',
-        className: "nav-link"
-      }, "Login")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "nav-item"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-        to: "/users",
-        className: "nav-link"
-      }, "Users"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        exact: true,
-        path: "/"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-        exact: true,
-        path: "/login",
-        component: _componenets_Login__WEBPACK_IMPORTED_MODULE_3__["default"]
-      }))));
+      if (this.state.isLoggedIn == false) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+          className: "navbar navbar-expand navbar-dark bg-dark"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/",
+          className: "navbar-brand"
+        }, "Expense Tracker"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/home",
+          className: "nav-link"
+        }, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: '/login',
+          className: "nav-link"
+        }, "Login")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/users",
+          className: "nav-link"
+        }, "Users"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+          exact: true,
+          path: "/home",
+          component: _componenets_Home__WEBPACK_IMPORTED_MODULE_5__["default"]
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+          exact: true,
+          path: "/login",
+          component: _componenets_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
+        }))));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+          className: "navbar navbar-expand navbar-dark bg-dark"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/",
+          className: "navbar-brand"
+        }, "Expense Tracker"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/home",
+          className: "nav-link"
+        }, "Home")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "nav-item"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: "/users",
+          className: "nav-link"
+        }, "Users"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+          exact: true,
+          path: "/",
+          component: _componenets_Home__WEBPACK_IMPORTED_MODULE_5__["default"]
+        }))));
+      }
     }
   }]);
 
@@ -69931,14 +69976,305 @@ if (document.getElementById('app')) {
 
 /***/ }),
 
+/***/ "./resources/js/expenseTracker/appState.js":
+/*!*************************************************!*\
+  !*** ./resources/js/expenseTracker/appState.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var AppState = /*#__PURE__*/function () {
+  function AppState() {
+    var _this = this;
+
+    _classCallCheck(this, AppState);
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/user').then(function (response) {
+      _this.isLoggedIn = true;
+      _this.user = response.data;
+    })["catch"](function (error) {
+      _this.isLoggedIn = false;
+      _this.user = null;
+    });
+  }
+
+  _createClass(AppState, [{
+    key: "login",
+    value: function login(user) {
+      this.isLoggedIn = true;
+      this.user = user;
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      this.isLoggedIn = false;
+      this.user = null;
+    }
+  }]);
+
+  return AppState;
+}();
+
+var appState = new AppState();
+/* harmony default export */ __webpack_exports__["default"] = (appState);
+
+/***/ }),
+
+/***/ "./resources/js/expenseTracker/componenets/Home.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/expenseTracker/componenets/Home.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _appState__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../appState */ "./resources/js/expenseTracker/appState.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+var Home = /*#__PURE__*/function (_React$Component) {
+  _inherits(Home, _React$Component);
+
+  var _super = _createSuper(Home);
+
+  function Home(props) {
+    _classCallCheck(this, Home);
+
+    return _super.call(this, props);
+  }
+
+  _createClass(Home, [{
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, "Hello This is Home", console.log(_appState__WEBPACK_IMPORTED_MODULE_1__["default"]));
+    }
+  }]);
+
+  return Home;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Home);
+
+/***/ }),
+
 /***/ "./resources/js/expenseTracker/componenets/Login.js":
 /*!**********************************************************!*\
   !*** ./resources/js/expenseTracker/componenets/Login.js ***!
   \**********************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: D:\\SE FACTORY\\Assighments\\LaravelApiReact\\resources\\js\\expenseTracker\\componenets\\Login.js: Unexpected token (22:0)\n\n\u001b[0m \u001b[90m 20 | \u001b[39m                    \u001b[36mif\u001b[39m (response\u001b[33m.\u001b[39mstatus \u001b[33m===\u001b[39m \u001b[35m204\u001b[39m) {\u001b[0m\n\u001b[0m \u001b[90m 21 | \u001b[39m                        setToHome(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 22 | \u001b[39m\u001b[33m:\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 23 | \u001b[39m                    }\u001b[0m\n\u001b[0m \u001b[90m 24 | \u001b[39m                })\u001b[33m.\u001b[39m\u001b[36mcatch\u001b[39m(error \u001b[33m=>\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 25 | \u001b[39m                    \u001b[36mif\u001b[39m (error\u001b[33m.\u001b[39mresponse \u001b[33m&&\u001b[39m error\u001b[33m.\u001b[39mresponse\u001b[33m.\u001b[39mstatus \u001b[33m===\u001b[39m \u001b[35m422\u001b[39m) {\u001b[0m\n    at Object._raise (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:790:17)\n    at Object.raiseWithData (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:783:17)\n    at Object.raise (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:777:17)\n    at Object.unexpected (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:9095:16)\n    at Object.parseExprAtom (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10529:20)\n    at Object.parseExprAtom (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:4759:20)\n    at Object.parseExprSubscripts (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10094:23)\n    at Object.parseUpdate (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10074:21)\n    at Object.parseMaybeUnary (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10063:17)\n    at Object.parseExprOps (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:9933:23)\n    at Object.parseMaybeConditional (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:9907:23)\n    at Object.parseMaybeAssign (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:9870:21)\n    at Object.parseExpressionBase (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:9815:23)\n    at D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:9809:39\n    at Object.allowInAnd (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11510:12)\n    at Object.parseExpression (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:9809:17)\n    at Object.parseStatementContent (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11770:23)\n    at Object.parseStatement (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11639:17)\n    at Object.parseBlockOrModuleBlockBody (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:12221:25)\n    at Object.parseBlockBody (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:12207:10)\n    at Object.parseBlock (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:12191:10)\n    at Object.parseStatementContent (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11715:21)\n    at Object.parseStatement (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11639:17)\n    at Object.parseIfStatement (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11993:28)\n    at Object.parseStatementContent (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11684:21)\n    at Object.parseStatement (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11639:17)\n    at Object.parseBlockOrModuleBlockBody (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:12221:25)\n    at Object.parseBlockBody (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:12207:10)\n    at Object.parseBlock (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:12191:10)\n    at Object.parseFunctionBody (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11184:24)\n    at Object.parseArrowExpression (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:11156:10)\n    at Object.parseExprAtom (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10382:25)\n    at Object.parseExprAtom (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:4759:20)\n    at Object.parseExprSubscripts (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10094:23)\n    at Object.parseUpdate (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10074:21)\n    at Object.parseMaybeUnary (D:\\SE FACTORY\\Assighments\\LaravelApiReact\\node_modules\\@babel\\parser\\lib\\index.js:10063:17)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _appState__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../appState */ "./resources/js/expenseTracker/appState.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var Login = function Login(props) {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      email = _React$useState2[0],
+      setEmail = _React$useState2[1];
+
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(''),
+      _React$useState4 = _slicedToArray(_React$useState3, 2),
+      password = _React$useState4[0],
+      setPassword = _React$useState4[1];
+
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false),
+      _React$useState6 = _slicedToArray(_React$useState5, 2),
+      toHome = _React$useState6[0],
+      setToHome = _React$useState6[1];
+
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false),
+      _React$useState8 = _slicedToArray(_React$useState7, 2),
+      authError = _React$useState8[0],
+      setAuthError = _React$useState8[1];
+
+  var _React$useState9 = react__WEBPACK_IMPORTED_MODULE_0___default.a.useState(false),
+      _React$useState10 = _slicedToArray(_React$useState9, 2),
+      unknownError = _React$useState10[0],
+      setUnknownError = _React$useState10[1];
+
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    setAuthError(false);
+    setUnknownError(false);
+    axios.get('/sanctum/csrf-cookie').then(function (response) {
+      axios.post('/login', {
+        email: email,
+        password: password
+      }).then(function (response) {
+        if (response.status === 204) {
+          _appState__WEBPACK_IMPORTED_MODULE_2__["default"].login(response.data);
+        } else {
+          alert("User Already Logged In");
+        }
+
+        setToHome(true);
+        axios.get('/api/user').then(function (response) {
+          _appState__WEBPACK_IMPORTED_MODULE_2__["default"].login(response.data);
+          console.log(_appState__WEBPACK_IMPORTED_MODULE_2__["default"]);
+        });
+      })["catch"](function (error) {
+        if (error.response && error.response.status === 422) {
+          setAuthError(true);
+        } else {
+          setUnknownError(true);
+          console.error(error);
+        }
+
+        console.log("Failure");
+      });
+    });
+  };
+
+  if (toHome === true) {// alert("Success");
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row justify-content-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-8"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-header"
+  }, "Login"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "email",
+    className: "col-md-4 col-form-label text-md-right"
+  }, "Email:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    id: "email",
+    type: "email",
+    className: "form-control" + (authError || unknownError ? ' is-invalid' : ''),
+    name: "email",
+    value: email,
+    required: true,
+    autoComplete: "email",
+    onChange: function onChange(e) {
+      return setEmail(e.target.value);
+    },
+    placeholder: "Email"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+    htmlFor: "password",
+    className: "col-md-4 col-form-label text-md-right"
+  }, "Password:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-6"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    id: "password",
+    type: "password",
+    className: "form-control" + (authError || unknownError ? ' is-invalid' : ''),
+    value: password,
+    placeholder: "Password",
+    name: "password",
+    required: true,
+    autoComplete: "current-password",
+    onChange: function onChange(e) {
+      return setPassword(e.target.value);
+    }
+  }))), authError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-danger"
+  }, "Credentials not recognised. Please try again.") : null, unknownError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "alert alert-danger"
+  }, "There was an error submitting your details.") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "form-group row mb-0"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "col-md-8 offset-md-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    type: "submit",
+    className: "btn btn-primary"
+  }, "Login"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: function onClick() {
+      axios.get('/sanctum/csrf-cookie').then(function (response) {
+        axios.post('/logout').then(function (response) {
+          _appState__WEBPACK_IMPORTED_MODULE_2__["default"].logout();
+          console.log(_appState__WEBPACK_IMPORTED_MODULE_2__["default"]);
+        })["catch"](function (error) {
+          console.log(error);
+        });
+      });
+    }
+  }, "Logout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: function onClick() {
+      axios.get('/api/user').then(function (response) {
+        setUser(response.data);
+        console.log(response.data);
+        alert("success");
+      })["catch"](function (error) {
+        if (error.response.status === 401) {
+          alert("Not Authorizied");
+        }
+      });
+    }
+  }, "getLogin"));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Login);
 
 /***/ }),
 

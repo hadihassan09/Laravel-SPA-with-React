@@ -1,12 +1,13 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-
+import appState from "../appState";
 const Login = (props) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [toHome, setToHome] = React.useState(false);
     const [authError, setAuthError] = React.useState(false);
     const [unknownError, setUnknownError] = React.useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setAuthError(false);
@@ -17,10 +18,16 @@ const Login = (props) => {
                     email: email,
                     password: password
                 }).then(response => {
-                    if (response.status === 204) {
-                        setToHome(true);
-:
+                    if(response.status === 204){
+                        appState.login(response.data);
+                    }else{
+                        alert("User Already Logged In");
                     }
+                    setToHome(true);
+                    axios.get('/api/user').then(response=>{
+                        appState.login(response.data);
+                        console.log(appState);
+                    });
                 }).catch(error => {
                     if (error.response && error.response.status === 422) {
                         setAuthError(true);
@@ -28,11 +35,12 @@ const Login = (props) => {
                         setUnknownError(true);
                         console.error(error);
                     }
+                    console.log("Failure");
                 });
             });
     }
     if (toHome === true) {
-        alert("Success");
+        // alert("Success");
     }
     return (
         <div>
@@ -80,6 +88,7 @@ const Login = (props) => {
                                             <button type="submit" className="btn btn-primary">
                                                 Login
                                             </button>
+
                                         </div>
                                     </div>
                                 </form>
@@ -88,6 +97,32 @@ const Login = (props) => {
                     </div>
                 </div>
             </div>
+            <button onClick={()=>{
+                axios.get('/sanctum/csrf-cookie').then(response=>{
+                    axios.post('/logout').then(response=>{
+                        appState.logout();
+                        console.log(appState);
+                    }).catch(error=>{
+                        console.log(error);
+                    });
+                })
+            }}>
+                Logout
+            </button>
+
+            <button onClick={()=>{
+                axios.get('/api/user').then(response=>{
+                    setUser(response.data);
+                    console.log(response.data);
+                    alert("success")
+                }).catch(error=>{
+                    if(error.response.status === 401){
+                        alert("Not Authorizied");
+                    }
+                });
+            }}>
+                getLogin
+            </button>
         </div>
     );
 };
