@@ -1,3 +1,5 @@
+import SignUp from "./componenets/SignUp";
+
 require('../bootstrap');
 import React from "react";
 import ReactDOM from 'react-dom';
@@ -40,12 +42,13 @@ class App extends React.Component {
                                 <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}} className="LOGO">Expense Tracker</Link>
                                 </li>
                                 <li style={{"float": "right"}}><Link to={"/login"} style={{"cursor": "pointer"}}>Login</Link></li>
-                                <li style={{"float": "right"}}><Link to={"/"} style={{"cursor": "pointer"}}>SignUp</Link></li>
+                                <li style={{"float": "right"}}><Link to={"/signup"} style={{"cursor": "pointer"}}>Register</Link></li>
                             </ul>
                         </nav>
                         <Switch>
                             <Route exact path="/" component={Home}/>
                             <Route exact path='/login' component={Login}/>
+                            <Route exact path='/signup' component={SignUp}/>
                         </Switch>
                     </div>
                 </Router>
@@ -82,7 +85,6 @@ class App extends React.Component {
                         </nav>
                         <Switch>
                             <Route exact path="/" component={Home}/>
-                            <Route exact path='/login' component={Login}/>
                         </Switch>
                     </div>
                 </Router>
