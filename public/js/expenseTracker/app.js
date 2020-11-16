@@ -70286,6 +70286,23 @@ var Login = function Login(props) {
   }
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "mainBody"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    style: {
+      textAlign: "center",
+      color: "gray"
+    }
+  }, "Welcome To Expense Tracker"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    style: {
+      textAlign: "center",
+      color: "black"
+    }
+  }, "Please Log In To Proceed"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    align: "center",
+    style: {
+      font: "14px sans-serif"
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row justify-content-center"
@@ -70344,34 +70361,11 @@ var Login = function Login(props) {
   }, "There was an error submitting your details.") : null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "form-group row mb-0"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-8 offset-md-4"
+    className: "col-md-4 offset-md-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "submit",
     className: "btn btn-primary"
-  }, "Login"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: function onClick() {
-      axios.get('/sanctum/csrf-cookie').then(function (response) {
-        axios.post('/logout').then(function (response) {
-          _appState__WEBPACK_IMPORTED_MODULE_2__["default"].logout();
-          console.log(_appState__WEBPACK_IMPORTED_MODULE_2__["default"]);
-        })["catch"](function (error) {
-          console.log(error);
-        });
-      });
-    }
-  }, "Logout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: function onClick() {
-      axios.get('/api/user').then(function (response) {
-        setUser(response.data);
-        console.log(response.data);
-        alert("success");
-      })["catch"](function (error) {
-        if (error.response.status === 401) {
-          alert("Not Authorizied");
-        }
-      });
-    }
-  }, "getLogin"));
+  }, "Login"))))))))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Login);
