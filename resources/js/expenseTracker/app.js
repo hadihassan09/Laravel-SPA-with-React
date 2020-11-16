@@ -1,7 +1,7 @@
 require('../bootstrap');
 import React from "react";
 import ReactDOM from 'react-dom';
-
+import axios from 'axios';
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,12 +11,13 @@ import {
 import appState from "./appState";
 import Login from './componenets/Login';
 import Home from "./componenets/Home";
+import capitalizeFLetter from './functions';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            isLoggedIn: appState.isLoggedIn
+            isLoggedIn: false
         }
     }
 
@@ -26,30 +27,24 @@ class App extends React.Component {
             this.setState({
                 isLoggedIn: appState.isLoggedIn
             })
-        }, 2000)
+        }, 1000)
     }
 
     render() {
-        if (this.state.isLoggedIn == false){
+        if (this.state.isLoggedIn === false){
             return (
                 <Router>
-                    <div>
-                        <nav className="navbar navbar-expand navbar-dark bg-dark">
-                            <Link to={"/"} className="navbar-brand">
-                                Expense Tracker
-                            </Link>
-                            <li className="nav-item">
-                                <Link to="/home" className="nav-link">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to={'/login'} className="nav-link">Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/users" className="nav-link">Users</Link>
-                            </li>
+                    <div id={"navBar"}>
+                        <nav>
+                            <ul>
+                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}} className="LOGO">Expense Tracker</Link>
+                                </li>
+                                <li style={{"float": "right"}}><Link to={"/login"} style={{"cursor": "pointer"}}>Login</Link></li>
+                                <li style={{"float": "right"}}><Link to={"/"} style={{"cursor": "pointer"}}>SignUp</Link></li>
+                            </ul>
                         </nav>
                         <Switch>
-                            <Route exact path="/home" component={Home}/>
+                            <Route exact path="/" component={Home}/>
                             <Route exact path='/login' component={Login}/>
                         </Switch>
                     </div>
@@ -58,20 +53,36 @@ class App extends React.Component {
         }else{
             return (
                 <Router>
-                    <div>
-                        <nav className="navbar navbar-expand navbar-dark bg-dark">
-                            <Link to={"/"} className="navbar-brand">
-                                Expense Tracker
-                            </Link>
-                            <li className="nav-item">
-                                <Link to="/home" className="nav-link">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/users" className="nav-link">Users</Link>
-                            </li>
+                    <div id={"navBar"}>
+                        <nav>
+                            <ul>
+                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}} className="LOGO">Expense Tracker</Link>
+                                </li>
+                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>List Expenses</Link></li>
+                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>List Categories</Link></li>
+                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>Add Expenses</Link></li>
+                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>Add Category</Link></li>
+                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>View PieChart</Link></li>
+                                <li style={{"float": "right"}}>
+                                    <Link to={"/"} onClick={(e)=>{
+                                        e.preventDefault();
+                                        axios.get('/sanctum/csrf-cookie').then(response=>{
+                                            axios.post('/logout').then(response=>{
+                                                appState.logout();
+                                            }).catch(error=>{
+                                                console.log(error);
+                                            });
+                                        })
+                                    }}>
+                                        Logout
+                                    </Link>
+                                </li>
+                                <li style={{"float": "right"}}><Link to={"/"} style={{"cursor": "pointer"}}>Welcome {capitalizeFLetter(appState.user.email)}</Link></li>
+                            </ul>
                         </nav>
                         <Switch>
                             <Route exact path="/" component={Home}/>
+                            <Route exact path='/login' component={Login}/>
                         </Switch>
                     </div>
                 </Router>
