@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import CustomModal from "./modal";
+import CreateExpenseModal from "./modal";
 
 class Expense extends React.Component{
     constructor(props) {
@@ -24,9 +24,12 @@ class Expense extends React.Component{
         });
     }
 
-    //Modal Functions
-    handleSave = (fromModal) => {
-        console.log("xd");
+    //Create Modal Functions
+    handleSaveCreateModel = (data)=>{
+        console.log(data);
+        this.setState({
+            showCreateModel: false
+        })
     };
 
     showCreateModel = ()=>{
@@ -34,6 +37,18 @@ class Expense extends React.Component{
             showCreateModel: true
         })
     };
+
+    closeCreateModel = ()=>{
+        this.setState({
+            showCreateModel: false
+        })
+    }
+
+    //Edit Modal Functions
+    handleSave = (fromModal) => {
+        console.log("xd");
+    };
+
 
     handleShow = (task) => {
         this.setState({
@@ -97,14 +112,12 @@ class Expense extends React.Component{
                       </div>
                   </div>
               </div>
-               <CustomModal
+               <CreateExpenseModal
                    show={this.state.showCreateModel}
                    title={"Create Expense"}
-                   data={null}
-                   type={0}
-                   onClick={this.handleClose}
-                   onHide={this.handleClose}
-                   onSave={this.handleSave}/>
+                   onClick={this.closeCreateModel}
+                   onHide={this.closeCreateModel}
+                   onSave={this.handleSaveCreateModel}/>
           </div>
         );
     }

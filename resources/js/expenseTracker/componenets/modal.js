@@ -2,30 +2,18 @@ import React, { Component } from "react";
 import {Modal, Button, FormGroup, Form} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class CustomModal extends Component {
+class CreateExpenseModal extends Component {
     constructor(props) {
         super(props);
 
         this.state={
-            data: '',
-            type: this.props.type
+            name: '',
+            amount: 0,
+            price: 0,
+            category: '',
         }
 
-        if(this.props.type === 1){
-            //Edit Component
-            this.setState({
-                data: this.props.data
-            })
-        }
-
-        this.handleChange = this.handleChange.bind(this);
     }
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-
-
 
     render() {
         return (
@@ -41,12 +29,42 @@ class CustomModal extends Component {
                     <Modal.Body>
                         <FormGroup>
                             <Form.Label>
-                                Task:
+                                Expense Name:
                             </Form.Label>
                             <Form.Control
                                 type="text"
-                                value={this.state.value}
-                                onChange={this.handleChange}
+                                value={this.state.name}
+                                onChange={e=>this.setState({name: e.target.value})}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Form.Label>
+                                Amount:
+                            </Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={this.state.amount}
+                                onChange={e=>this.setState({amount: e.target.value})}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Form.Label>
+                                Price:
+                            </Form.Label>
+                            <Form.Control
+                                type="number"
+                                value={this.state.price}
+                                onChange={e=>this.setState({price: e.target.value})}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Form.Label>
+                                Category:
+                            </Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={this.state.category}
+                                onChange={e=>this.setState({category: e.target.value})}
                             />
                         </FormGroup>
 
@@ -56,7 +74,7 @@ class CustomModal extends Component {
                         <Button variant="secondary"
                                 onClick={() => this.props.onClick()}>Close</Button>
                         <Button variant="primary"
-                                onClick={() => this.props.onSave()}>Submit</Button>
+                                onClick={() => this.props.onSave(this.state)}>Submit</Button>
                     </Modal.Footer>
 
                 </Modal>
@@ -65,7 +83,7 @@ class CustomModal extends Component {
     };
 }
 
-export default CustomModal;
+export default CreateExpenseModal;
 
 
 // <CustomModal
