@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from "axios";
-import CreateExpenseModal from "./modal";
+import CreateExpenseModal from "./createExpenseModal";
 
 class Expense extends React.Component{
     constructor(props) {

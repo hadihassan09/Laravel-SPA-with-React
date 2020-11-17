@@ -57794,7 +57794,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/preact/compat/dist/compat.module.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modal */ "./resources/js/expenseTracker/componenets/modal.js");
+/* harmony import */ var _createExpenseModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createExpenseModal */ "./resources/js/expenseTracker/componenets/createExpenseModal.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -57935,7 +57935,7 @@ var Expense = /*#__PURE__*/function (_React$Component) {
         style: {
           cursor: "pointer"
         }
-      }, "Delete"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(_modal__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, "Delete"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(_createExpenseModal__WEBPACK_IMPORTED_MODULE_2__["default"], {
         show: this.state.showCreateModel,
         title: "Create Expense",
         onClick: this.closeCreateModel,
@@ -58440,10 +58440,10 @@ var SignUp = function SignUp(props) {
 
 /***/ }),
 
-/***/ "./resources/js/expenseTracker/componenets/modal.js":
-/*!**********************************************************!*\
-  !*** ./resources/js/expenseTracker/componenets/modal.js ***!
-  \**********************************************************/
+/***/ "./resources/js/expenseTracker/componenets/createExpenseModal.js":
+/*!***********************************************************************!*\
+  !*** ./resources/js/expenseTracker/componenets/createExpenseModal.js ***!
+  \***********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
