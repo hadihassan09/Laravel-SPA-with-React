@@ -10,7 +10,7 @@ class CreateExpenseModal extends Component {
             name: '',
             amount: 0,
             price: 0,
-            category: '',
+            category: ''
         }
 
     }
