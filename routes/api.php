@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->get('/expenses', [ExpenseController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/expenses/create', [ExpenseController::class, 'create']);
