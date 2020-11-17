@@ -1,4 +1,18 @@
 const mix = require('laravel-mix');
+mix.webpackConfig({
+    "resolve": {
+        "alias": {
+            "react": "preact/compat",
+            "react-dom": "preact/compat"
+        }
+    }
+});
+
+mix.babelConfig({
+    "plugins": [
+        "@babel/plugin-proposal-class-properties"
+    ],
+});
 
 /*
  |--------------------------------------------------------------------------
