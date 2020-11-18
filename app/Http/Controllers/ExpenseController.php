@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expense;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ExpenseController extends Controller
@@ -10,7 +11,8 @@ class ExpenseController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -26,18 +28,41 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'price' => 'required',
+            'category' => 'required|exists:categories,id',
+        ], [
+            'name.required' => "Expense Name is Required.",
+            'amount.required' => "Expense Amount is Required.",
+            'price.required' => "Expense Price is Required.",
+            'category.required' => "Expense Category is Required.",
+            'category.exists' => "Category Does Not Exist",
+        ]);
+
+        return response()->json(
+            [
+                'expense' =>
+                    Expense::create([
+                        'item'=>$request->input('name'),
+                        'amount'=>$request->input('amount'),
+                        'price'=>$request->input('price'),
+                        'category_id'=>$request->input('category'),
+                        'user_id' => $request->user()->id
+                    ])
+            ]);
     }
 
     /**
@@ -65,7 +90,7 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Models\Expense  $expense
      * @return \Illuminate\Http\Response
      */
