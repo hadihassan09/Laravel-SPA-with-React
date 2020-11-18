@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Modal, Button, FormGroup, Form} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios";
 
 class CreateExpenseModal extends Component {
     constructor(props) {
@@ -8,11 +9,61 @@ class CreateExpenseModal extends Component {
 
         this.state={
             name: '',
-            amount: 0,
-            price: 0,
-            category: ''
+            amount: '',
+            price: '',
+            category: '',
+            nameError: false,
+            amountError: false,
+            priceError: false,
+            categoryError: false
         }
+    }
 
+    addExpense = ()=>{
+        axios.post('/api/expenses/create',{
+            name: this.state.name,
+            amount: this.state.amount,
+            price: this.state.amount,
+            category: this.state.category
+        }).then(response=>{
+            this.props.onSave(response.data.expense);
+        }).catch(error=>{
+            if(error.response && error.response.status === 422){
+                if(error.response.data.errors.name)
+                    this.setState({
+                        nameError: true
+                    });
+                else
+                    this.setState({
+                        nameError:false
+                    });
+                if(error.response.data.errors.amount)
+                    this.setState({
+                        amountError:true
+                    });
+                else
+                    this.setState({
+                        amountError:false
+                    });
+                if(error.response.data.errors.category)
+                    this.setState({
+                        categoryError: true
+                    });
+                else
+                    this.setState({
+                        categoryError: false
+                    });
+                if(error.response.data.errors.price)
+                    this.setState({
+                        priceError: true
+                    });
+                else
+                    this.setState({
+                        priceError: false
+                    });
+            }
+        });
+        // this.props.onSave();
     }
 
     render() {
@@ -32,30 +83,57 @@ class CreateExpenseModal extends Component {
                                 Expense Name:
                             </Form.Label>
                             <Form.Control
+                                isInvalid={this.state.nameError}
                                 type="text"
                                 value={this.state.name}
                                 onChange={e=>this.setState({name: e.target.value})}
                             />
+                            {
+                                this.state.nameError ?
+                                    <Form.Control.Feedback type="invalid">
+                                        Please choose an expense Name.
+                                    </Form.Control.Feedback>
+                                    :
+                                    ''
+                            }
                         </FormGroup>
                         <FormGroup>
                             <Form.Label>
                                 Amount:
                             </Form.Label>
                             <Form.Control
+                                isInvalid={this.state.amountError}
                                 type="number"
                                 value={this.state.amount}
                                 onChange={e=>this.setState({amount: e.target.value})}
                             />
+                            {
+                                this.state.amountError ?
+                                    <Form.Control.Feedback type="invalid">
+                                        Please choose an expense amount.
+                                    </Form.Control.Feedback>
+                                    :
+                                    ''
+                            }
                         </FormGroup>
                         <FormGroup>
                             <Form.Label>
                                 Price:
                             </Form.Label>
                             <Form.Control
+                                isInvalid={this.state.priceError}
                                 type="number"
                                 value={this.state.price}
                                 onChange={e=>this.setState({price: e.target.value})}
                             />
+                            {
+                                this.state.priceError ?
+                                    <Form.Control.Feedback type="invalid">
+                                        Please choose an expense price.
+                                    </Form.Control.Feedback>
+                                    :
+                                    ''
+                            }
                         </FormGroup>
                         <FormGroup>
                             <Form.Label>
@@ -63,9 +141,18 @@ class CreateExpenseModal extends Component {
                             </Form.Label>
                             <Form.Control
                                 type="text"
+                                isInvalid={this.state.categoryError}
                                 value={this.state.category}
                                 onChange={e=>this.setState({category: e.target.value})}
                             />
+                            {
+                                this.state.categoryError ?
+                                    <Form.Control.Feedback type="invalid">
+                                        Please choose a valid category.
+                                    </Form.Control.Feedback>
+                                    :
+                                    ''
+                            }
                         </FormGroup>
 
                     </Modal.Body>
@@ -74,7 +161,7 @@ class CreateExpenseModal extends Component {
                         <Button variant="secondary"
                                 onClick={() => this.props.onClick()}>Close</Button>
                         <Button variant="primary"
-                                onClick={() => this.props.onSave(this.state)}>Submit</Button>
+                                onClick={this.addExpense}>Submit</Button>
                     </Modal.Footer>
 
                 </Modal>
