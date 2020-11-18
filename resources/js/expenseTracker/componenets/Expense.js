@@ -26,10 +26,13 @@ class Expense extends React.Component{
 
     //Create Modal Functions
     handleSaveCreateModel = (data)=>{
-        console.log(data);
+
         this.setState({
+            expenses: this.state.expenses.concat(data),
             showCreateModel: false
-        })
+        },()=>{
+            console.log(this.state.expenses);
+        });
     };
 
     showCreateModel = ()=>{
@@ -95,18 +98,20 @@ class Expense extends React.Component{
                                   </tr>
                               </thead>
                               <tbody>
-                                  <tr>
-                                      <td>0</td>
-                                      <td>ASUS COMPUTER</td>
-                                      <td>321</td>
-                                      <td>123</td>
-                                      <td>2020-11-16 23:46:00</td>
-                                      <td>Laps</td>
-                                      <td>
-                                          <div><a className="actionButton" style={{cursor: "pointer"}}>Edit</a><a
-                                              className="actionButton" style={{cursor: "pointer"}}>Delete</a></div>
-                                      </td>
-                                  </tr>
+                                    {this.state.expenses.map(({id, item, amount, price, created_at, category_id},index)=>
+                                        <tr key={id}>
+                                            <td>{index}</td>
+                                            <td>{item}</td>
+                                            <td>{amount}</td>
+                                            <td>{price}</td>
+                                            <td>{created_at}</td>
+                                            <td>{category_id}</td>
+                                            <td>
+                                                <div><a className="actionButton" style={{cursor: "pointer"}}>Edit</a><a
+                                                    className="actionButton" style={{cursor: "pointer"}}>Delete</a></div>
+                                            </td>
+                                        </tr>
+                                    )}
                               </tbody>
                           </table>
                       </div>

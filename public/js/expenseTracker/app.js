@@ -57836,10 +57836,11 @@ var Expense = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "handleSaveCreateModel", function (data) {
-      console.log(data);
-
       _this.setState({
+        expenses: _this.state.expenses.concat(data),
         showCreateModel: false
+      }, function () {
+        console.log(_this.state.expenses);
       });
     });
 
@@ -57925,17 +57926,27 @@ var Expense = /*#__PURE__*/function (_React$Component) {
         }
       }, "Add Expense"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("table", {
         id: "t01"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Item Number"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Item Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Amount"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Category"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Actions"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("tbody", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, "ASUS COMPUTER"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, "321"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, "123"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, "2020-11-16 23:46:00"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, "Laps"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("a", {
-        className: "actionButton",
-        style: {
-          cursor: "pointer"
-        }
-      }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("a", {
-        className: "actionButton",
-        style: {
-          cursor: "pointer"
-        }
-      }, "Delete"))))))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(_createExpenseModal__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("thead", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Item Number"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Item Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Amount"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Price"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Category"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("th", null, "Actions"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("tbody", null, this.state.expenses.map(function (_ref, index) {
+        var id = _ref.id,
+            item = _ref.item,
+            amount = _ref.amount,
+            price = _ref.price,
+            created_at = _ref.created_at,
+            category_id = _ref.category_id;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("tr", {
+          key: id
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, index), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, item), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, amount), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, price), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, created_at), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, category_id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("a", {
+          className: "actionButton",
+          style: {
+            cursor: "pointer"
+          }
+        }, "Edit"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement("a", {
+          className: "actionButton",
+          style: {
+            cursor: "pointer"
+          }
+        }, "Delete"))));
+      })))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(_createExpenseModal__WEBPACK_IMPORTED_MODULE_2__["default"], {
         show: this.state.showCreateModel,
         title: "Create Expense",
         onClick: this.closeCreateModel,
@@ -58453,6 +58464,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/index.js");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -58475,6 +58488,9 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -58490,11 +58506,50 @@ var CreateExpenseModal = /*#__PURE__*/function (_Component) {
     _classCallCheck(this, CreateExpenseModal);
 
     _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "addExpense", function () {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/expenses/create', {
+        name: _this.state.name,
+        amount: _this.state.amount,
+        price: _this.state.amount,
+        category: _this.state.category
+      }).then(function (response) {
+        _this.props.onSave(response.data.expense);
+      })["catch"](function (error) {
+        if (error.response && error.response.status === 422) {
+          if (error.response.data.errors.name) _this.setState({
+            nameError: true
+          });else _this.setState({
+            nameError: false
+          });
+          if (error.response.data.errors.amount) _this.setState({
+            amountError: true
+          });else _this.setState({
+            amountError: false
+          });
+          if (error.response.data.errors.category) _this.setState({
+            categoryError: true
+          });else _this.setState({
+            categoryError: false
+          });
+          if (error.response.data.errors.price) _this.setState({
+            priceError: true
+          });else _this.setState({
+            priceError: false
+          });
+        }
+      }); // this.props.onSave();
+    });
+
     _this.state = {
       name: '',
-      amount: 0,
-      price: 0,
-      category: ''
+      amount: '',
+      price: '',
+      category: '',
+      nameError: false,
+      amountError: false,
+      priceError: false,
+      categoryError: false
     };
     return _this;
   }
@@ -58512,6 +58567,7 @@ var CreateExpenseModal = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Header, {
         closeButton: true
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Title, null, this.props.title)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Body, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Expense Name:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
+        isInvalid: this.state.nameError,
         type: "text",
         value: this.state.name,
         onChange: function onChange(e) {
@@ -58519,7 +58575,10 @@ var CreateExpenseModal = /*#__PURE__*/function (_Component) {
             name: e.target.value
           });
         }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Amount:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
+      }), this.state.nameError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control.Feedback, {
+        type: "invalid"
+      }, "Please choose an expense Name.") : ''), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Amount:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
+        isInvalid: this.state.amountError,
         type: "number",
         value: this.state.amount,
         onChange: function onChange(e) {
@@ -58527,7 +58586,10 @@ var CreateExpenseModal = /*#__PURE__*/function (_Component) {
             amount: e.target.value
           });
         }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Price:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
+      }), this.state.amountError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control.Feedback, {
+        type: "invalid"
+      }, "Please choose an expense amount.") : ''), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Price:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
+        isInvalid: this.state.priceError,
         type: "number",
         value: this.state.price,
         onChange: function onChange(e) {
@@ -58535,24 +58597,27 @@ var CreateExpenseModal = /*#__PURE__*/function (_Component) {
             price: e.target.value
           });
         }
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Category:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
+      }), this.state.priceError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control.Feedback, {
+        type: "invalid"
+      }, "Please choose an expense price.") : ''), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["FormGroup"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Label, null, "Category:"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control, {
         type: "text",
+        isInvalid: this.state.categoryError,
         value: this.state.category,
         onChange: function onChange(e) {
           return _this2.setState({
             category: e.target.value
           });
         }
-      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+      }), this.state.categoryError ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Form"].Control.Feedback, {
+        type: "invalid"
+      }, "Please choose a valid category.") : '')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Modal"].Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
         variant: "secondary",
         onClick: function onClick() {
           return _this2.props.onClick();
         }
       }, "Close"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__["default"].createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
         variant: "primary",
-        onClick: function onClick() {
-          return _this2.props.onSave(_this2.state);
-        }
+        onClick: this.addExpense
       }, "Submit"))));
     }
   }]);
