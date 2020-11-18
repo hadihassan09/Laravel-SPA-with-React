@@ -16,7 +16,7 @@ class ExpenseController extends Controller
      */
     public function index(Request $request)
     {
-        $expenses = Expense::where('user_id', $request->user()->id)->with('category')->get();
+        $expenses = Expense::where('user_id', $request->user()->id)->with('category')->orderBy('created_at')->get();
         return response()->json(
             ['expenses' => $expenses]
         );
