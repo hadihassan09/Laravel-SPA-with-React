@@ -14,7 +14,7 @@ import appState from "./appState";
 import Login from './componenets/Login';
 import Home from "./componenets/Home";
 import Expense from './componenets/Expense';
-import capitalizeFLetter from './functions';
+import {capitalizeFLetter} from './functions';
 
 class App extends React.Component {
     constructor(props) {

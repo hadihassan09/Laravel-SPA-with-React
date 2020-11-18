@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 import CreateExpenseModal from "./createExpenseModal";
-
+import {formatDate} from '../functions'
 class Expense extends React.Component{
     constructor(props) {
         super(props);
@@ -98,14 +98,14 @@ class Expense extends React.Component{
                                   </tr>
                               </thead>
                               <tbody>
-                                    {this.state.expenses.map(({id, item, amount, price, created_at, category_id},index)=>
+                                    {this.state.expenses.map(({id, item, amount, price, created_at, category},index)=>
                                         <tr key={id}>
                                             <td>{index}</td>
                                             <td>{item}</td>
                                             <td>{amount}</td>
                                             <td>{price}</td>
-                                            <td>{created_at}</td>
-                                            <td>{category_id}</td>
+                                            <td>{formatDate(created_at)}</td>
+                                            <td>{category.name}</td>
                                             <td>
                                                 <div><a className="actionButton" style={{cursor: "pointer"}}>Edit</a><a
                                                     className="actionButton" style={{cursor: "pointer"}}>Delete</a></div>
