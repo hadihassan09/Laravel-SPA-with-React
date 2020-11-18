@@ -16,8 +16,9 @@ class ExpenseController extends Controller
      */
     public function index(Request $request)
     {
+        $expenses = Expense::where('user_id', $request->user()->id)->with('category')->get();
         return response()->json(
-            ['expenses' => Expense::where('user_id', $request->user()->id)->get()]
+            ['expenses' => $expenses]
         );
     }
 
@@ -52,16 +53,17 @@ class ExpenseController extends Controller
             'category.exists' => "Category Does Not Exist",
         ]);
 
+        $expense = Expense::create([
+                    'item'=>$request->input('name'),
+                    'amount'=>$request->input('amount'),
+                    'price'=>$request->input('price'),
+                    'category_id'=>$request->input('category'),
+                    'user_id' => $request->user()->id
+                ]);
+
         return response()->json(
             [
-                'expense' =>
-                    Expense::create([
-                        'item'=>$request->input('name'),
-                        'amount'=>$request->input('amount'),
-                        'price'=>$request->input('price'),
-                        'category_id'=>$request->input('category'),
-                        'user_id' => $request->user()->id
-                    ])
+                'expense' => Expense::where('id', $expense->id)->with('category')->get()
             ]);
     }
 

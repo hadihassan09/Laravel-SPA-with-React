@@ -80242,8 +80242,7 @@ var capitalizeFLetter = function capitalizeFLetter(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 };
 var formatDate = function formatDate(date) {
-  return moment__WEBPACK_IMPORTED_MODULE_0___default()(date, 'YYYY-MM-DD HH:mm:ss').format('dddd,DD MMMM, h:mm:ss a');
-  ;
+  return moment__WEBPACK_IMPORTED_MODULE_0___default.a.utc(date).local().format('dddd,DD MMMM, h:mm:ss a');
 };
 
 /***/ }),
