@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Modal, Button, FormGroup, Form} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
-import {capitalizeFLetter} from "../functions";
+import {capitalizeFLetter} from "../../functions";
 
 class EditExpenseModal extends Component {
     constructor(props) {

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from "axios";
 import CreateExpenseModal from "./createExpenseModal";
 import EditExpenseModal from './editExpenseModal';
-import {formatDate, capitalizeFLetter} from '../functions'
+import {formatDate, capitalizeFLetter} from '../../functions'
 
 class Expense extends React.Component{
     constructor(props) {
