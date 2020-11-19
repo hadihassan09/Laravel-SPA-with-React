@@ -63,8 +63,6 @@ class App extends React.Component {
                                 </li>
                                 <li style={{"float": "left"}}><Link to={"/expenses"} style={{"cursor": "pointer"}}>List Expenses</Link></li>
                                 <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>List Categories</Link></li>
-                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>Add Expenses</Link></li>
-                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>Add Category</Link></li>
                                 <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>View PieChart</Link></li>
                                 <li style={{"float": "right"}}>
                                     <Link to={"/"} onClick={(e)=>{
