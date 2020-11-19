@@ -14,6 +14,7 @@ import appState from "./appState";
 import Login from './componenets/Login';
 import Home from "./componenets/Home";
 import Expense from './componenets/Expenses/Expense';
+import Categories from "./componenets/Categories/Categories";
 import {capitalizeFLetter} from './functions';
 
 class App extends React.Component {
@@ -62,7 +63,7 @@ class App extends React.Component {
                                 <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}} className="LOGO">Expense Tracker</Link>
                                 </li>
                                 <li style={{"float": "left"}}><Link to={"/expenses"} style={{"cursor": "pointer"}}>List Expenses</Link></li>
-                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>List Categories</Link></li>
+                                <li style={{"float": "left"}}><Link to={"/categories"} style={{"cursor": "pointer"}}>List Categories</Link></li>
                                 <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>View PieChart</Link></li>
                                 <li style={{"float": "right"}}>
                                     <Link to={"/"} onClick={(e)=>{
@@ -84,6 +85,7 @@ class App extends React.Component {
                         <Switch>
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/expenses" component={Expense}/>
+                            <Route exact path="/categories" component={Categories}/>
                         </Switch>
                     </div>
                 </Router>
