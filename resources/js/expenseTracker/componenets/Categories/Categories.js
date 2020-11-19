@@ -204,7 +204,7 @@ class Categories extends React.Component{
             <div>
                 <div align="center">
                     <h1 style={{textAlign: "center",color: "gray"}}>Welcome To Expense Tracker</h1>
-                    <p style={{textAlign: "center",color:"black"}}>Here are the List of Expenses</p>
+                    <p style={{textAlign: "center",color:"black"}}>Here are the List of Categories</p>
                     <br/><br/>
                 </div>
                 {
