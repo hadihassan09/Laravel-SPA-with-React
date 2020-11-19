@@ -37,7 +37,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ], [
+            'name.required' => "Category Name is Required.",
+        ]);
+
+        $category = Category::create([
+            'name'=>$request->input('name')
+        ]);
+
+        return response()->json(
+            [
+                'category' => Category::where('id', $category->id)->get()
+            ]);
     }
 
     /**
@@ -71,7 +84,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ], [
+            'name.required' => "Category Name is Required.",
+        ]);
+
+        $category->name = $request->input('name');
+        $category->save();
+
+        return response([
+            'success' => true,
+            'category' => Category::where('id', $category->id)->get()
+        ]);
     }
 
     /**
@@ -82,6 +107,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response(['success'=> true]);
     }
 }

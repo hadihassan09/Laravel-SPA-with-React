@@ -28,3 +28,9 @@ Route::middleware('auth:sanctum')->post('/expenses/update/{expense}', [ExpenseCo
 
 //Categories Routes
 Route::middleware('auth:sanctum')->get('/categories', [CategoryController::class, 'index']);
+Route::middleware('auth:sanctum')->post('/categories/create', [CategoryController::class, 'store']);
+Route::middleware('auth:sanctum')->get('/categories/delete/{category}', [CategoryController::class, 'destroy']);
+Route::middleware('auth:sanctum')->post('/categories/update/{category}', [CategoryController::class, 'update']);
+
+
+
