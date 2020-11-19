@@ -69,7 +69,7 @@ class ExpenseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Expense  $expense
+     * @param Expense $expense
      * @return \Illuminate\Http\Response
      */
     public function show(Expense $expense)
@@ -80,7 +80,7 @@ class ExpenseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Expense  $expense
+     * @param Expense $expense
      * @return \Illuminate\Http\Response
      */
     public function edit(Expense $expense)
@@ -92,7 +92,7 @@ class ExpenseController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param  \App\Models\Expense  $expense
+     * @param Expense $expense
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Expense $expense)
@@ -103,11 +103,16 @@ class ExpenseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Expense  $expense
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Expense $expense
+     * @return JsonResponse
      */
-    public function destroy(Expense $expense)
+    public function destroy(Request $request, Expense $expense)
     {
-        //
+        if($expense->user_id === $request->user()->id){
+            $expense->delete();
+            return response()->json( ['success', true]);
+        }
+        return response()->json( ['success'=> false]);
     }
 }
