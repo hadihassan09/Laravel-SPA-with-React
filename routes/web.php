@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () {
+Route::get('/{path?}', function () {
     return view('layouts.app');
 });
 
