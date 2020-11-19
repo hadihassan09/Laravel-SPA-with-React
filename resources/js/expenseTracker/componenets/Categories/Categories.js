@@ -2,6 +2,7 @@ import React from 'react';
 import axios from "axios";
 import {formatDate, capitalizeFLetter} from '../../functions'
 import CreateCategoryModal from "./createCategoryModal";
+import EditCategoryModal from "./editCategoryModal";
 
 class Categories extends React.Component{
     constructor(props) {
@@ -128,74 +129,74 @@ class Categories extends React.Component{
     }
 
     // //Edit Modal Functions
-    // handleSaveEditModal = (data, success) => {
-    //     if(success === true){
-    //         let oldCategories = this.state.categories;
-    //         oldCategories.splice(this.state.index, 1, data);
-    //         this.setState({
-    //             expenses: oldExpenses,
-    //             status: true,
-    //             danger: false,
-    //             showEditModel: false,
-    //             modalData: null,
-    //             statusMessage: 'Category Updated Successfully'
-    //         }, ()=>{
-    //             setTimeout(()=>{
-    //                 this.setState({
-    //                     status: false
-    //                 })
-    //             }, 3000);
-    //         });
-    //     }else{
-    //         this.setState({
-    //             status: true,
-    //             showEditModel: false,
-    //             modalData: null,
-    //             danger: true,
-    //             statusMessage: 'Expense Could Not Be Updated'
-    //         }, ()=>{
-    //             setTimeout(()=>{
-    //                 this.setState({
-    //                     status: false
-    //                 })
-    //             }, 3000);
-    //         });
-    //     }
-    // };
-    //
-    //
-    // handleShowEditModal = (expense) => {
-    //     this.setState({
-    //         index: this.state.expenses.indexOf(expense),
-    //         showEditModel: true,
-    //         modalData: expense
-    //     });
-    // };
-    //
-    // handleCloseEditModal = () => {
-    //     this.setState({
-    //         showEditModel: false,
-    //         modalData: null
-    //     });
-    // };
-    //
-    // renderEditModal = ()=>{
-    //     if(this.state.showEditModel === true)
-    //         return (
-    //             <EditExpenseModal
-    //                 show={this.state.showEditModel}
-    //                 title={"Edit Expense"}
-    //                 data={this.state.modalData}
-    //                 onClick={this.handleCloseEditModal}
-    //                 onHide={this.handleCloseEditModal}
-    //                 onSave={this.handleSaveEditModal}/>
-    //         );
-    //     else
-    //         return(
-    //             <>
-    //             </>
-    //         );
-    // }
+    handleSaveEditModal = (data, success) => {
+        if(success === true){
+            let oldCategories = this.state.categories;
+            oldCategories.splice(this.state.index, 1, data);
+            this.setState({
+                categories: oldCategories,
+                status: true,
+                danger: false,
+                showEditModel: false,
+                modalData: null,
+                statusMessage: 'Category Updated Successfully'
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        status: false
+                    })
+                }, 3000);
+            });
+        }else{
+            this.setState({
+                status: true,
+                showEditModel: false,
+                modalData: null,
+                danger: true,
+                statusMessage: 'Category Could Not Be Updated'
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        status: false
+                    })
+                }, 3000);
+            });
+        }
+    };
+
+
+    handleShowEditModal = (category) => {
+        this.setState({
+            index: this.state.categories.indexOf(category),
+            showEditModel: true,
+            modalData: category
+        });
+    };
+
+    handleCloseEditModal = () => {
+        this.setState({
+            showEditModel: false,
+            modalData: null
+        });
+    };
+
+    renderEditModal = ()=>{
+        if(this.state.showEditModel === true)
+            return (
+                <EditCategoryModal
+                    show={this.state.showEditModel}
+                    title={"Edit Category"}
+                    data={this.state.modalData}
+                    onClick={this.handleCloseEditModal}
+                    onHide={this.handleCloseEditModal}
+                    onSave={this.handleSaveEditModal}/>
+            );
+        else
+            return(
+                <>
+                </>
+            );
+    }
 
 
     render() {
@@ -269,7 +270,7 @@ class Categories extends React.Component{
                     onClick={this.closeCreateModel}
                     onHide={this.closeCreateModel}
                     onSave={this.handleSaveCreateModel}/>
-                {/*{ this.renderEditModal() }*/}
+                { this.renderEditModal() }
             </div>
         );
     }
