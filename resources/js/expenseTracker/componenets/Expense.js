@@ -1,15 +1,18 @@
 import React from 'react';
 import axios from "axios";
 import CreateExpenseModal from "./createExpenseModal";
+import EditExpenseModal from './editExpenseModal';
 import {formatDate} from '../functions'
 class Expense extends React.Component{
     constructor(props) {
         super(props);
 
         this.state={
+            index: 0,
             expenses: [],
             showCreateModel: false,
             status: false,
+            danger: false,
             statusMessage: '',
             showEditModel: false,
             modalData: null
@@ -37,6 +40,7 @@ class Expense extends React.Component{
                 this.setState({
                     expenses: oldExpenses,
                     status: true,
+                    danger: false,
                     statusMessage: 'Expense Deleted Successfully'
                 }, ()=>{
                     setTimeout(()=>{
@@ -48,6 +52,7 @@ class Expense extends React.Component{
             }else{
                 this.setState({
                     status: true,
+                    danger: true,
                     statusMessage: 'Expense Could Not Be Deleted'
                 }, ()=>{
                     setTimeout(()=>{
@@ -60,6 +65,7 @@ class Expense extends React.Component{
         }).catch(error=>{
             this.setState({
                 status: true,
+                danger: true,
                 statusMessage: 'Expense Could Not Be Deleted'
             }, ()=>{
                 setTimeout(()=>{
@@ -74,14 +80,37 @@ class Expense extends React.Component{
 
 
     //Create Modal Functions
-    handleSaveCreateModel = (data)=>{
+    handleSaveCreateModel = (data, success)=>{
+        if(success === true){
+            this.setState({
+            });
+            this.setState({
+                expenses: this.state.expenses.concat(data),
+                showCreateModel: false,
+                status: true,
+                danger: false,
+                statusMessage: 'Expense Added Successfully'
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        status: false
+                    })
+                }, 3000);
+            });
+        }else{
+            this.setState({
+                status: true,
+                danger: true,
+                statusMessage: 'Expense Could Not Be Added'
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        status: false
+                    })
+                }, 3000);
+            });
+        }
 
-        this.setState({
-            expenses: this.state.expenses.concat(data),
-            showCreateModel: false
-        },()=>{
-            console.log(this.state.expenses);
-        });
     };
 
     showCreateModel = ()=>{
@@ -97,24 +126,74 @@ class Expense extends React.Component{
     }
 
     //Edit Modal Functions
-    handleSave = (fromModal) => {
-        console.log("xd");
+    handleSaveEditModal = (data, success) => {
+        if(success === true){
+            let oldExpenses = this.state.expenses;
+            oldExpenses.splice(this.state.index, 1, data);
+            this.setState({
+                expenses: oldExpenses,
+                status: true,
+                danger: false,
+                showEditModel: false,
+                modalData: null,
+                statusMessage: 'Expense Updated Successfully'
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        status: false
+                    })
+                }, 3000);
+            });
+        }else{
+            this.setState({
+                status: true,
+                showEditModel: false,
+                modalData: null,
+                danger: true,
+                statusMessage: 'Expense Could Not Be Updated'
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        status: false
+                    })
+                }, 3000);
+            });
+        }
     };
 
 
-    handleShow = (task) => {
+    handleShowEditModal = (expense) => {
         this.setState({
-            show: true,
-            modalData: task
-        })
+            index: this.state.expenses.indexOf(expense),
+            showEditModel: true,
+            modalData: expense
+        });
     };
 
-    handleClose = () => {
+    handleCloseEditModal = () => {
         this.setState({
-            show: false,
+            showEditModel: false,
             modalData: null
         });
     };
+
+    renderEditModal = ()=>{
+        if(this.state.showEditModel === true)
+            return (
+                <EditExpenseModal
+                    show={this.state.showEditModel}
+                    title={"Edit Expense"}
+                    data={this.state.modalData}
+                    onClick={this.handleCloseEditModal}
+                    onHide={this.handleCloseEditModal}
+                    onSave={this.handleSaveEditModal}/>
+            );
+        else
+            return(
+                <>
+                </>
+            );
+    }
 
 
     render() {
@@ -127,9 +206,15 @@ class Expense extends React.Component{
                </div>
               {
                   this.state.status ?
-                  <div className="alert alert-success wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
-                      {this.state.statusMessage}
-                  </div> : ''
+                      this.state.danger ?
+                          <div className="alert alert-danger wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
+                              {this.state.statusMessage}
+                          </div>
+                          :
+                          <div className="alert alert-success wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
+                              {this.state.statusMessage}
+                          </div>
+                      : ''
               }
               <div id="mainBody">
                   <div>
@@ -168,7 +253,7 @@ class Expense extends React.Component{
                                                     <i style={{marginRight: 15}}
                                                        className="fas fa-edit text-blue-200 hover:text-blue-600 cursor-pointer"
                                                        onClick={() => {
-
+                                                            this.handleShowEditModal(expense);
                                                        }}></i>
                                                     <i
                                                        className="fas fa-times text-red-200 hover:text-red-600 cursor-pointer"
@@ -190,6 +275,7 @@ class Expense extends React.Component{
                    onClick={this.closeCreateModel}
                    onHide={this.closeCreateModel}
                    onSave={this.handleSaveCreateModel}/>
+              { this.renderEditModal() }
           </div>
         );
     }
