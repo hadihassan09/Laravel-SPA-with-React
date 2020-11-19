@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import {Modal, Button, FormGroup, Form} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
+import {capitalizeFLetter} from "../functions";
 
 class CreateExpenseModal extends Component {
     constructor(props) {
@@ -15,8 +16,19 @@ class CreateExpenseModal extends Component {
             nameError: false,
             amountError: false,
             priceError: false,
-            categoryError: false
+            categoryError: false,
+            categories: []
         }
+    }
+
+    componentDidMount() {
+        axios.get('/api/categories').then(response=>{
+            this.setState({
+                categories: response.data.categories
+            });
+        }).catch(error=>{
+            console.log(error);
+        });
     }
 
     addExpense = ()=>{
@@ -154,12 +166,18 @@ class CreateExpenseModal extends Component {
                             <Form.Label>
                                 Category:
                             </Form.Label>
-                            <Form.Control
+                            <Form.Control as="select"
                                 type="text"
                                 isInvalid={this.state.categoryError}
-                                value={this.state.category}
                                 onChange={e=>this.setState({category: e.target.value})}
-                            />
+                            >
+                                <option key={0}></option>
+                                {
+                                    this.state.categories.map((category, index)=>
+                                        <option key={category.id} value={category.id}>{capitalizeFLetter(category.name)}</option>
+                                    )
+                                }
+                            </Form.Control>
                             {
                                 this.state.categoryError ?
                                     <Form.Control.Feedback type="invalid">
