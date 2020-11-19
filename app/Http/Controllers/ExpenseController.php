@@ -97,7 +97,33 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, Expense $expense)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'amount' => 'required',
+            'price' => 'required',
+            'category' => 'required|exists:categories,id',
+        ], [
+            'name.required' => "Expense Name is Required.",
+            'amount.required' => "Expense Amount is Required.",
+            'price.required' => "Expense Price is Required.",
+            'category.required' => "Expense Category is Required.",
+            'category.exists' => "Category Does Not Exist",
+        ]);
+
+        if($expense->user_id === $request->user()->id) {
+            $expense->item = $request->input('name');
+            $expense->amount = $request->input('amount');
+            $expense->price = $request->input('price');
+            $expense->category_id = $request->input('category');
+            $expense->save();
+
+            return response([
+                'success'=>true,
+                'expense' => Expense::where('id', $expense->id)->with('category')->get()
+            ]);
+        }
+        return response(['success'=> false],401);
+
     }
 
     /**
@@ -112,6 +138,6 @@ class ExpenseController extends Controller
             $expense->delete();
             return response(['success'=> true]);
         }
-        return response(['success'=> false],404);
+        return response(['success'=> false],401);
     }
 }
