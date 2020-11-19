@@ -16,6 +16,7 @@ import Home from "./componenets/Home";
 import Expense from './componenets/Expenses/Expense';
 import Categories from "./componenets/Categories/Categories";
 import {capitalizeFLetter} from './functions';
+import PieChart from "./componenets/PieChart";
 
 class App extends React.Component {
     constructor(props) {
@@ -64,7 +65,7 @@ class App extends React.Component {
                                 </li>
                                 <li style={{"float": "left"}}><Link to={"/expenses"} style={{"cursor": "pointer"}}>List Expenses</Link></li>
                                 <li style={{"float": "left"}}><Link to={"/categories"} style={{"cursor": "pointer"}}>List Categories</Link></li>
-                                <li style={{"float": "left"}}><Link to={"/"} style={{"cursor": "pointer"}}>View PieChart</Link></li>
+                                <li style={{"float": "left"}}><Link to={"/pieChart"} style={{"cursor": "pointer"}}>View PieChart</Link></li>
                                 <li style={{"float": "right"}}>
                                     <Link to={"/"} onClick={(e)=>{
                                         e.preventDefault();
@@ -86,6 +87,7 @@ class App extends React.Component {
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/expenses" component={Expense}/>
                             <Route exact path="/categories" component={Categories}/>
+                            <Route exact path="/pieChart" component={PieChart}/>
                         </Switch>
                     </div>
                 </Router>
