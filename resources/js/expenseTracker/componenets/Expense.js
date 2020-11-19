@@ -2,7 +2,8 @@ import React from 'react';
 import axios from "axios";
 import CreateExpenseModal from "./createExpenseModal";
 import EditExpenseModal from './editExpenseModal';
-import {formatDate} from '../functions'
+import {formatDate, capitalizeFLetter} from '../functions'
+
 class Expense extends React.Component{
     constructor(props) {
         super(props);
@@ -245,11 +246,9 @@ class Expense extends React.Component{
                                             <td>{expense.amount}</td>
                                             <td>{expense.price}</td>
                                             <td>{formatDate(expense.created_at)}</td>
-                                            <td>{expense.category.name}</td>
+                                            <td>{capitalizeFLetter(expense.category.name)}</td>
                                             <td>
                                                 <div className={"h3"}>
-                                                    {/*<a className="actionButton" style={{cursor: "pointer"}}>Edit</a>*/}
-                                                    {/*<a className="actionButton" style={{cursor: "pointer"}}>Delete</a>*/}
                                                     <i style={{marginRight: 15}}
                                                        className="fas fa-edit text-blue-200 hover:text-blue-600 cursor-pointer"
                                                        onClick={() => {
