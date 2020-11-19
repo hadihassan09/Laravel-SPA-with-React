@@ -31,6 +31,6 @@ Route::middleware('auth:sanctum')->get('/categories', [CategoryController::class
 Route::middleware('auth:sanctum')->post('/categories/create', [CategoryController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/categories/delete/{category}', [CategoryController::class, 'destroy']);
 Route::middleware('auth:sanctum')->post('/categories/update/{category}', [CategoryController::class, 'update']);
-
+Route::middleware('auth:sanctum')->get('/pieChart', [CategoryController::class, 'pieChartData']);
 
 

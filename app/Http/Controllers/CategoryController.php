@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -109,5 +110,16 @@ class CategoryController extends Controller
     {
         $category->delete();
         return response(['success'=> true]);
+    }
+
+    public function pieChartData(Request $request){
+        return response(
+            [
+                'data'=> DB::table('expenses')
+                    ->rightJoin('categories', 'expenses.category_id', '=', 'categories.id')
+                    ->select('categories.name as label', DB::raw('count(expenses.category_id) as y'))
+                    ->groupBy('categories.id')->get()
+            ]
+        );
     }
 }
