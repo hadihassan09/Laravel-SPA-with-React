@@ -26,6 +26,16 @@ class CreateExpenseModal extends Component {
             price: this.state.amount,
             category: this.state.category
         }).then(response=>{
+            this.setState({
+                name: '',
+                amount: '',
+                price: '',
+                category: '',
+                nameError: false,
+                amountError: false,
+                priceError: false,
+                categoryError: false
+            })
             this.props.onSave(response.data.expense);
         }).catch(error=>{
             if(error.response && error.response.status === 422){
