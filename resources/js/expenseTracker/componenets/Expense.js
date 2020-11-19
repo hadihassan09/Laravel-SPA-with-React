@@ -9,6 +9,8 @@ class Expense extends React.Component{
         this.state={
             expenses: [],
             showCreateModel: false,
+            status: false,
+            statusMessage: '',
             showEditModel: false,
             modalData: null
         }
@@ -23,6 +25,53 @@ class Expense extends React.Component{
             console.log(error);
         });
     }
+
+    //Expense Functions
+
+    deleteExpense = (expense)=>{
+        axios.get('api/expenses/delete/'.concat(expense.id)).then(response=>{
+            if(response.status===200 && response.data[1] === true) {
+                let index = this.state.expenses.indexOf(expense);
+                let oldExpenses = this.state.expenses.slice();
+                oldExpenses.splice(index, 1);
+                this.setState({
+                    expenses: oldExpenses,
+                    status: true,
+                    statusMessage: 'Expense Deleted Successfully'
+                }, ()=>{
+                    setTimeout(()=>{
+                        this.setState({
+                            status: false
+                        })
+                    }, 3000);
+                });
+            }else{
+                this.setState({
+                    status: true,
+                    statusMessage: 'Expense Could Not Be Deleted'
+                }, ()=>{
+                    setTimeout(()=>{
+                        this.setState({
+                            status: false
+                        })
+                    }, 3000);
+                });
+            }
+        }).catch(error=>{
+            this.setState({
+                status: true,
+                statusMessage: 'Expense Could Not Be Deleted'
+            }, ()=>{
+                setTimeout(()=>{
+                    this.setState({
+                        status: false
+                    })
+                }, 3000);
+            });
+        })
+    };
+
+
 
     //Create Modal Functions
     handleSaveCreateModel = (data)=>{
@@ -76,6 +125,12 @@ class Expense extends React.Component{
                   <p style={{textAlign: "center",color:"black"}}>Here are the List of Expenses</p>
                   <br/><br/>
                </div>
+              {
+                  this.state.status ?
+                  <div className="alert alert-success wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
+                      {this.state.statusMessage}
+                  </div> : ''
+              }
               <div id="mainBody">
                   <div>
                       <a className="addButton" style={{cursor: "pointer"}}
@@ -98,17 +153,29 @@ class Expense extends React.Component{
                                   </tr>
                               </thead>
                               <tbody>
-                                    {this.state.expenses.map(({id, item, amount, price, created_at, category},index)=>
-                                        <tr key={id}>
+                                    {this.state.expenses.map((expense,index)=>
+                                        <tr key={expense.id}>
                                             <td>{index}</td>
-                                            <td>{item}</td>
-                                            <td>{amount}</td>
-                                            <td>{price}</td>
-                                            <td>{formatDate(created_at)}</td>
-                                            <td>{category.name}</td>
+                                            <td>{expense.item}</td>
+                                            <td>{expense.amount}</td>
+                                            <td>{expense.price}</td>
+                                            <td>{formatDate(expense.created_at)}</td>
+                                            <td>{expense.category.name}</td>
                                             <td>
-                                                <div><a className="actionButton" style={{cursor: "pointer"}}>Edit</a><a
-                                                    className="actionButton" style={{cursor: "pointer"}}>Delete</a></div>
+                                                <div className={"h3"}>
+                                                    {/*<a className="actionButton" style={{cursor: "pointer"}}>Edit</a>*/}
+                                                    {/*<a className="actionButton" style={{cursor: "pointer"}}>Delete</a>*/}
+                                                    <i style={{marginRight: 15}}
+                                                       className="fas fa-edit text-blue-200 hover:text-blue-600 cursor-pointer"
+                                                       onClick={() => {
+
+                                                       }}></i>
+                                                    <i
+                                                       className="fas fa-times text-red-200 hover:text-red-600 cursor-pointer"
+                                                       onClick={() => {
+                                                           this.deleteExpense(expense);
+                                                       }}></i>
+                                                </div>
                                             </td>
                                         </tr>
                                     )}
