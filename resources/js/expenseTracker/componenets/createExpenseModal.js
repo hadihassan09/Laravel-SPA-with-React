@@ -181,30 +181,3 @@ class CreateExpenseModal extends Component {
 }
 
 export default CreateExpenseModal;
-
-
-// <CustomModal
-//     show={this.state.show}
-//     title={"Edit Task"}
-//     data={this.state.modalData}
-//     onClick={this.handleClose}
-//     onHide={this.handleClose}
-//     onSave={this.handleSave}/>
-
-
-// handleSave = (fromModal) => {
-// }
-//
-// handleShow = (task) => {
-//     this.setState({
-//         show: true,
-//         modalData: task
-//     })
-// };
-//
-// handleClose = () => {
-//     this.setState({
-//         show: false,
-//         modalData: null
-//     });
-// };
