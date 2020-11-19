@@ -36,44 +36,49 @@ class CreateExpenseModal extends Component {
                 priceError: false,
                 categoryError: false
             })
-            this.props.onSave(response.data.expense);
+            this.props.onSave(response.data.expense, true);
         }).catch(error=>{
-            if(error.response && error.response.status === 422){
-                if(error.response.data.errors.name)
-                    this.setState({
-                        nameError: true
-                    });
-                else
-                    this.setState({
-                        nameError:false
-                    });
-                if(error.response.data.errors.amount)
-                    this.setState({
-                        amountError:true
-                    });
-                else
-                    this.setState({
-                        amountError:false
-                    });
-                if(error.response.data.errors.category)
-                    this.setState({
-                        categoryError: true
-                    });
-                else
-                    this.setState({
-                        categoryError: false
-                    });
-                if(error.response.data.errors.price)
-                    this.setState({
-                        priceError: true
-                    });
-                else
-                    this.setState({
-                        priceError: false
-                    });
+            try {
+                if (error.response && error.response.status === 422) {
+                    if (error.response.data.errors.name)
+                        this.setState({
+                            nameError: true
+                        });
+                    else
+                        this.setState({
+                            nameError: false
+                        });
+                    if (error.response.data.errors.amount)
+                        this.setState({
+                            amountError: true
+                        });
+                    else
+                        this.setState({
+                            amountError: false
+                        });
+                    if (error.response.data.errors.category)
+                        this.setState({
+                            categoryError: true
+                        });
+                    else
+                        this.setState({
+                            categoryError: false
+                        });
+                    if (error.response.data.errors.price)
+                        this.setState({
+                            priceError: true
+                        });
+                    else
+                        this.setState({
+                            priceError: false
+                        });
+                }else{
+                    this.props.onSave(null, false);
+                }
+            }catch (e) {
+
             }
         });
-        // this.props.onSave();
     }
 
     render() {
