@@ -30,7 +30,7 @@ class Expense extends React.Component{
 
     deleteExpense = (expense)=>{
         axios.get('api/expenses/delete/'.concat(expense.id)).then(response=>{
-            if(response.status===200 && response.data[1] === true) {
+            if(response.status===200 && response.data.success === true) {
                 let index = this.state.expenses.indexOf(expense);
                 let oldExpenses = this.state.expenses.slice();
                 oldExpenses.splice(index, 1);
