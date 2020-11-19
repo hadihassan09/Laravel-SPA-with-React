@@ -105,14 +105,13 @@ class ExpenseController extends Controller
      *
      * @param Request $request
      * @param Expense $expense
-     * @return JsonResponse
      */
     public function destroy(Request $request, Expense $expense)
     {
         if($expense->user_id === $request->user()->id){
             $expense->delete();
-            return response()->json( ['success', true]);
+            return response(['success'=> true]);
         }
-        return response()->json( ['success'=> false]);
+        return response(['success'=> false],404);
     }
 }
