@@ -30,9 +30,7 @@ const SignUp = (props) => {
                         axios.get('/api/user').then(response=>{
                             appState.login(response.data);
                         });
-                    }
-                    if(response.status === 302){
-                        setEmailError(true);
+                        setToHome(true);
                     }
                 }).catch(error => {
                     if (error.response && error.response.status === 422) {
@@ -50,7 +48,7 @@ const SignUp = (props) => {
             });
     }
     if (toHome === true) {
-        // alert("Success");
+        return <Redirect to={"/"} />
     }
     return (
         <div id={"mainBody"}>

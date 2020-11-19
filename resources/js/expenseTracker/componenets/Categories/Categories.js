@@ -26,7 +26,6 @@ class Categories extends React.Component{
                 categories: response.data.categories
             });
         }).catch(error=>{
-            console.log(error);
         });
     }
 
@@ -34,7 +33,6 @@ class Categories extends React.Component{
 
     deleteCategory = (category)=>{
         axios.get('api/categories/delete/'.concat(category.id)).then(response=>{
-            console.log(response);
             if(response.status===200 && response.data.success === true) {
                 let index = this.state.categories.indexOf(category);
                 let oldCategories = this.state.categories.slice();

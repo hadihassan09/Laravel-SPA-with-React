@@ -73,7 +73,6 @@ class App extends React.Component {
                                             axios.post('/logout').then(response=>{
                                                 appState.logout();
                                             }).catch(error=>{
-                                                console.log(error);
                                             });
                                         })
                                     }}>

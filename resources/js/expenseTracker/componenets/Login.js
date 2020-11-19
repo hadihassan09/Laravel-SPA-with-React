@@ -26,7 +26,6 @@ const Login = (props) => {
                     setToHome(true);
                     axios.get('/api/user').then(response=>{
                         appState.login(response.data);
-                        console.log(appState);
                     });
                 }).catch(error => {
                     if (error.response && error.response.status === 422) {
@@ -35,12 +34,11 @@ const Login = (props) => {
                         setUnknownError(true);
                         console.error(error);
                     }
-                    console.log("Failure");
                 });
             });
     }
     if (toHome === true) {
-        // alert("Success");
+        return <Redirect to={"/"} />
     }
     return (
         <div>
