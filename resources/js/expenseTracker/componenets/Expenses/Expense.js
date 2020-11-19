@@ -100,6 +100,7 @@ class Expense extends React.Component{
             });
         }else{
             this.setState({
+                showCreateModel: false,
                 status: true,
                 danger: true,
                 statusMessage: 'Expense Could Not Be Added'
