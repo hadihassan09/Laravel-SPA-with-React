@@ -27,6 +27,7 @@ class PieChart extends React.Component{
 
     getCategories(){
         axios.get('/api/pieChart').then(response=>{
+            console.log(response.data.data);
             this.setState({
                 data: response.data.data
             })
@@ -48,7 +49,7 @@ class PieChart extends React.Component{
                 startAngle: 75,
                 toolTipContent: "<b>{label}</b>:  #percent%",
                 showInLegend: "true",
-                legendText: "{label} {y}",
+                legendText: "{label} having {y} expenses",
                 indexLabelFontSize: 16,
                 indexLabel: "{label}",
                 dataPoints: this.state.data
