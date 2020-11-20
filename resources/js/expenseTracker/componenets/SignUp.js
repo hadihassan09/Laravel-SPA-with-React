@@ -47,7 +47,7 @@ const SignUp = (props) => {
                 });
             });
     }
-    if (toHome === true) {
+    if (toHome === true || appState.isLoggedIn === true) {
         return <Redirect to={"/"} />
     }
     return (

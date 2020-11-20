@@ -8,7 +8,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, Redirect
 } from "react-router-dom";
 import appState from "./appState";
 import Login from './componenets/Login';
@@ -22,22 +22,28 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            isLoggedIn: false
+            isLoggedIn: false,
+            toHome: false,
+            user: ''
         }
     }
 
     componentDidMount() {
         setInterval(()=>{
             this.setState({
-                isLoggedIn: appState.isLoggedIn
+                isLoggedIn: appState.isLoggedIn,
+                toHome: false,
+                user: appState.user
             })
         }, 1000)
     }
+
 
     render() {
         if (this.state.isLoggedIn === false){
             return (
                 <Router>
+                    {this.state.toHome ? <Redirect to={'/'} /> : '' }
                     <div id={"navBar"}>
                         <nav>
                             <ul>
@@ -72,6 +78,10 @@ class App extends React.Component {
                                         axios.get('/sanctum/csrf-cookie').then(response=>{
                                             axios.post('/logout').then(response=>{
                                                 appState.logout();
+                                                this.setState({
+                                                    toHome: true,
+                                                    isLoggedIn: false
+                                                })
                                             }).catch(error=>{
                                             });
                                         })
@@ -79,7 +89,7 @@ class App extends React.Component {
                                         Logout
                                     </Link>
                                 </li>
-                                <li style={{"float": "right"}}><Link to={"/"} style={{"cursor": "pointer"}}>Welcome {capitalizeFLetter(appState.user.email)}</Link></li>
+                                <li style={{"float": "right"}}><Link to={"/"} style={{"cursor": "pointer"}}>Welcome {capitalizeFLetter(this.state.user.email)}</Link></li>
                             </ul>
                         </nav>
                         <Switch>
@@ -87,6 +97,9 @@ class App extends React.Component {
                             <Route exact path="/expenses" component={Expense}/>
                             <Route exact path="/categories" component={Categories}/>
                             <Route exact path="/pieChart" component={PieChart}/>
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/signup" component={SignUp}/>
+
                         </Switch>
                     </div>
                 </Router>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
+import axios from 'axios';
 import appState from "../appState";
 const Login = (props) => {
     const [email, setEmail] = React.useState('');
@@ -18,15 +19,13 @@ const Login = (props) => {
                     email: email,
                     password: password
                 }).then(response => {
-                    if(response.status === 204){
-                        appState.login(response.data);
-                    }else{
+                    if(response.status !== 204){
                         alert("User Already Logged In");
                     }
-                    setToHome(true);
                     axios.get('/api/user').then(response=>{
                         appState.login(response.data);
                     });
+                    setToHome(true);
                 }).catch(error => {
                     if (error.response && error.response.status === 422) {
                         setAuthError(true);
@@ -37,7 +36,8 @@ const Login = (props) => {
                 });
             });
     }
-    if (toHome === true) {
+    if (toHome === true || appState.isLoggedIn === true) {
+        console.log("test");
         return <Redirect to={"/"} />
     }
     return (
