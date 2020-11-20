@@ -42,8 +42,13 @@ class CreateCategoryModal extends Component {
     render() {
         return (
             <div>
-                <Modal show={this.props.show} onHide={() => this.props.onHide()}>
-
+                <Modal show={this.props.show} onHide={() => {
+                    this.setState({
+                        name: '',
+                        nameError: false,
+                    })
+                    this.props.onHide()
+                }}>
                     <Modal.Header closeButton>
                         <Modal.Title>
                             {this.props.title}
@@ -74,7 +79,13 @@ class CreateCategoryModal extends Component {
 
                     <Modal.Footer>
                         <Button variant="secondary"
-                                onClick={() => this.props.onClick()}>Close</Button>
+                                onClick={() => {
+                                    this.setState({
+                                        name: '',
+                                        nameError: false,
+                                    })
+                                    this.props.onClick()}
+                                }>Close</Button>
                         <Button variant="primary"
                                 onClick={this.addCategory}>Submit</Button>
                     </Modal.Footer>

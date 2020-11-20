@@ -95,7 +95,19 @@ class CreateExpenseModal extends Component {
     render() {
         return (
             <div>
-                <Modal show={this.props.show} onHide={() => this.props.onHide()}>
+                <Modal show={this.props.show} onHide={() => {
+                    this.setState({
+                        name: '',
+                        amount: '',
+                        price: '',
+                        category: '',
+                        nameError: false,
+                        amountError: false,
+                        priceError: false,
+                        categoryError: false
+                    })
+                    this.props.onHide()
+                }}>
 
                     <Modal.Header closeButton>
                         <Modal.Title>
@@ -191,7 +203,19 @@ class CreateExpenseModal extends Component {
 
                     <Modal.Footer>
                         <Button variant="secondary"
-                                onClick={() => this.props.onClick()}>Close</Button>
+                                onClick={() => {
+                                    this.setState({
+                                        name: '',
+                                        amount: '',
+                                        price: '',
+                                        category: '',
+                                        nameError: false,
+                                        amountError: false,
+                                        priceError: false,
+                                        categoryError: false
+                                    })
+                                    this.props.onClick()
+                                }}>Close</Button>
                         <Button variant="primary"
                                 onClick={this.addExpense}>Submit</Button>
                     </Modal.Footer>
