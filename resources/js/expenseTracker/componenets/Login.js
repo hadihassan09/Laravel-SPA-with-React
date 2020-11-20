@@ -37,7 +37,6 @@ const Login = (props) => {
             });
     }
     if (toHome === true || appState.isLoggedIn === true) {
-        console.log("test");
         return <Redirect to={"/"} />
     }
     return (
