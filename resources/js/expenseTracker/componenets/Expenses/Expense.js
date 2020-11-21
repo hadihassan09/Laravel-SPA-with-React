@@ -28,7 +28,6 @@ class Expense extends React.Component{
     getExpenses = (data)=>{
         let page = data.selected >= 0 ? data.selected + 1 : 0;
         axios.get('/api/expenses?page='.concat(page.toString())).then(response=>{
-            console.log(response.data);
             this.setState({
                 expenses: response.data
             });
@@ -51,7 +50,7 @@ class Expense extends React.Component{
                     containerClassName="pagination justify-content-center"
                     activeClassName="uk-active"
                     disabledClassName="uk-disabled"
-                    onPageChange={this.getExpenses}
+                    onPageChange={(data)=>{this.getExpenses(data);}}
                     disableInitialCallback={false}
                 />
             </div>
