@@ -67,7 +67,7 @@ class Expense extends React.Component{
                             this.state.expenses.current_page === 1 ?
                                 <td>{index}</td>
                                 :
-                                <td>{index+1*this.state.expenses.current_page}</td>
+                                <td>{(index) + ((this.state.expenses.current_page-1)*this.state.expenses.per_page)}</td>
                         }
                         <td>{expense.item}</td>
                         <td>{expense.amount}</td>
