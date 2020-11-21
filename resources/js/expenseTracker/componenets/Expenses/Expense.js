@@ -1,16 +1,16 @@
 import React from 'react';
 import axios from "axios";
+import ReactPaginate from 'react-paginate';
 import CreateExpenseModal from "./createExpenseModal";
 import EditExpenseModal from './editExpenseModal';
-import {formatDate, capitalizeFLetter} from '../../functions'
-
+import {formatDate, capitalizeFLetter} from '../../functions';
 class Expense extends React.Component{
     constructor(props) {
         super(props);
 
         this.state={
             index: 0,
-            expenses: [],
+            expenses: null,
             showCreateModel: false,
             status: false,
             danger: false,
@@ -20,18 +20,81 @@ class Expense extends React.Component{
         }
     }
 
-    componentDidMount() {
-        axios.get('/api/expenses').then(response=>{
+    componentWillMount() {
+        this.getExpenses();
+    }
+
+    //Pagination:
+
+    getExpenses = (data = 1)=>{
+        let page = data.selected >= 0 ? data.selected + 1 : 0;
+        console.log(data);
+        axios.get('/api/expenses?page='.concat(page.toString())).then(response=>{
+            console.log(response.data);
             this.setState({
-                expenses: response.data.expenses
+                expenses: response.data
             });
         }).catch(error=>{
             console.log(error);
         });
     }
 
-    //Expense Functions
+    renderPagination = ()=>{
+        const {current_page, from, last_page, per_page, to, total} = this.state.expenses;
+        return(
+            <div style={{width: '98%', margin: "auto"}}>
+                <ReactPaginate
+                    pageCount={last_page}
+                    initialPage={current_page - 1}
+                    forcePage={current_page - 1}
+                    pageRangeDisplayed={4}
+                    marginPagesDisplayed={2}
+                    previousLabel="&#x276E;"
+                    nextLabel="&#x276F;"
+                    containerClassName="pagination justify-content-center"
+                    activeClassName="uk-active"
+                    disabledClassName="uk-disabled"
+                    onPageChange={this.getExpenses}
+                    disableInitialCallback={false}
+                />
+            </div>
+        );
+    }
 
+    renderExpenses = ()=>{
+        return(
+            <tbody>
+            {
+                this.state.expenses.data.map((expense, index) =>
+                    <tr key={expense.id}>
+                        <td>{index}</td>
+                        <td>{expense.item}</td>
+                        <td>{expense.amount}</td>
+                        <td>{expense.price}</td>
+                        <td>{formatDate(expense.created_at)}</td>
+                        <td>{capitalizeFLetter(expense.category.name)}</td>
+                        <td>
+                            <div className={"h3"}>
+                                <i style={{marginRight: 15}}
+                                   className="fas fa-edit text-blue-200 hover:text-blue-600 cursor-pointer"
+                                   onClick={() => {
+                                       this.handleShowEditModal(expense);
+                                   }}></i>
+                                <i
+                                    className="fas fa-times text-red-200 hover:text-red-600 cursor-pointer"
+                                    onClick={() => {
+                                        this.deleteExpense(expense);
+                                    }}></i>
+                            </div>
+                        </td>
+                    </tr>
+                )
+            }
+            </tbody>
+        );
+    }
+
+    //Expense Functions
     deleteExpense = (expense)=>{
         axios.get('api/expenses/delete/'.concat(expense.id)).then(response=>{
             if(response.status===200 && response.data.success === true) {
@@ -197,7 +260,6 @@ class Expense extends React.Component{
             );
     }
 
-
     render() {
         return(
           <div>
@@ -239,33 +301,9 @@ class Expense extends React.Component{
                                       <th>Actions</th>
                                   </tr>
                               </thead>
-                              <tbody>
-                                    {this.state.expenses.map((expense,index)=>
-                                        <tr key={expense.id}>
-                                            <td>{index}</td>
-                                            <td>{expense.item}</td>
-                                            <td>{expense.amount}</td>
-                                            <td>{expense.price}</td>
-                                            <td>{formatDate(expense.created_at)}</td>
-                                            <td>{capitalizeFLetter(expense.category.name)}</td>
-                                            <td>
-                                                <div className={"h3"}>
-                                                    <i style={{marginRight: 15}}
-                                                       className="fas fa-edit text-blue-200 hover:text-blue-600 cursor-pointer"
-                                                       onClick={() => {
-                                                            this.handleShowEditModal(expense);
-                                                       }}></i>
-                                                    <i
-                                                       className="fas fa-times text-red-200 hover:text-red-600 cursor-pointer"
-                                                       onClick={() => {
-                                                           this.deleteExpense(expense);
-                                                       }}></i>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    )}
-                              </tbody>
+                                {this.state.expenses && this.renderExpenses()}
                           </table>
+                          { this.state.expenses && this.renderPagination() }
                       </div>
                   </div>
               </div>
@@ -284,3 +322,26 @@ class Expense extends React.Component{
 
 
 export default Expense;
+
+
+// <ul className="pagination justify-content-center">
+//     {
+//         current_page === 1 ?
+//             <li className="page-item disabled"><a className="page-link" href="#" tabIndex="-1">Previous</a></li>
+//             :
+//             <li className="page-item"><a className="page-link" href="#" tabIndex="-1">Previous</a></li>
+//     }
+//     {
+//
+//     }
+//     <li className="page-item"><a className="page-link" href="#">1</a></li>
+//     <li className="page-item"><a className="page-link" href="#">2</a></li>
+//     <li className="page-item"><a className="page-link" href="#">3</a></li>
+//     {
+//         current_page === last_page ?
+//             <li className="page-item disabled"><a className="page-link" href="#">Next</a></li>
+//             :
+//             <li className="page-item"><a className="page-link" href="#">Next</a></li>
+//     }
+//
+// </ul>
