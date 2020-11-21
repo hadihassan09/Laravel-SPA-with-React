@@ -20,7 +20,7 @@ class Expense extends React.Component{
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getExpenses({selected: 0});
     }
 
@@ -28,6 +28,7 @@ class Expense extends React.Component{
     getExpenses = (data)=>{
         let page = data.selected >= 0 ? data.selected + 1 : 0;
         axios.get('/api/expenses?page='.concat(page.toString())).then(response=>{
+            console.log(response.data);
             this.setState({
                 expenses: response.data
             });
@@ -58,17 +59,13 @@ class Expense extends React.Component{
     }
 
     renderExpenses = ()=>{
+        const { from } = this.state.expenses;
         return(
             <tbody>
             {
                 this.state.expenses.data.map((expense, index) =>
                     <tr key={expense.id}>
-                        {
-                            this.state.expenses.current_page === 1 ?
-                                <td>{index}</td>
-                                :
-                                <td>{(index) + ((this.state.expenses.current_page-1)*this.state.expenses.per_page)}</td>
-                        }
+                        <td>{index+from}</td>
                         <td>{expense.item}</td>
                         <td>{expense.amount}</td>
                         <td>{expense.price}</td>
@@ -99,11 +96,13 @@ class Expense extends React.Component{
     deleteExpense = (expense)=>{
         axios.get('api/expenses/delete/'.concat(expense.id)).then(response=>{
             if(response.status===200 && response.data.success === true) {
-                let index = this.state.expenses.indexOf(expense);
-                let oldExpenses = this.state.expenses.slice();
+                let index = this.state.expenses.data.indexOf(expense);
+                let Expenses = this.state.expenses;
+                let oldExpenses = Expenses.data.slice()
                 oldExpenses.splice(index, 1);
+                Expenses.data = oldExpenses;
                 this.setState({
-                    expenses: oldExpenses,
+                    expenses: Expenses,
                     status: true,
                     danger: false,
                     statusMessage: 'Expense Deleted Successfully'
@@ -147,6 +146,12 @@ class Expense extends React.Component{
     //Create Modal Functions
     handleSaveCreateModel = (data, success)=>{
         if(success === true){
+            // if(this.state.expenses.current_page === this.state.expenses.last_page && this.state.expenses.data)
+            // let index = this.state.index
+            // let Expenses = this.state.expenses;
+            // let oldExpenses = Expenses.data.slice()
+            // oldExpenses.splice(index, 1, data);
+            // Expenses.data = oldExpenses;
             this.getExpenses({selected: this.state.expenses.current_page});
             this.setState({
                 showCreateModel: false,
@@ -191,10 +196,13 @@ class Expense extends React.Component{
     //Edit Modal Functions
     handleSaveEditModal = (data, success) => {
         if(success === true){
-            let oldExpenses = this.state.expenses;
-            oldExpenses.splice(this.state.index, 1, data);
+            let index = this.state.index
+            let Expenses = this.state.expenses;
+            let oldExpenses = Expenses.data.slice()
+            oldExpenses.splice(index, 1, data);
+            Expenses.data = oldExpenses;
             this.setState({
-                expenses: oldExpenses,
+                expenses: Expenses,
                 status: true,
                 danger: false,
                 showEditModel: false,
@@ -227,7 +235,7 @@ class Expense extends React.Component{
 
     handleShowEditModal = (expense) => {
         this.setState({
-            index: this.state.expenses.indexOf(expense),
+            index: this.state.expenses.data.indexOf(expense),
             showEditModel: true,
             modalData: expense
         });
@@ -320,26 +328,3 @@ class Expense extends React.Component{
 
 
 export default Expense;
-
-
-// <ul className="pagination justify-content-center">
-//     {
-//         current_page === 1 ?
-//             <li className="page-item disabled"><a className="page-link" href="#" tabIndex="-1">Previous</a></li>
-//             :
-//             <li className="page-item"><a className="page-link" href="#" tabIndex="-1">Previous</a></li>
-//     }
-//     {
-//
-//     }
-//     <li className="page-item"><a className="page-link" href="#">1</a></li>
-//     <li className="page-item"><a className="page-link" href="#">2</a></li>
-//     <li className="page-item"><a className="page-link" href="#">3</a></li>
-//     {
-//         current_page === last_page ?
-//             <li className="page-item disabled"><a className="page-link" href="#">Next</a></li>
-//             :
-//             <li className="page-item"><a className="page-link" href="#">Next</a></li>
-//     }
-//
-// </ul>
