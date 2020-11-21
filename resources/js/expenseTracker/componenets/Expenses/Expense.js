@@ -21,21 +21,17 @@ class Expense extends React.Component{
     }
 
     componentWillMount() {
-        this.getExpenses();
+        this.getExpenses({selected: 1});
     }
 
     //Pagination:
-
-    getExpenses = (data = 1)=>{
+    getExpenses = (data)=>{
         let page = data.selected >= 0 ? data.selected + 1 : 0;
-        console.log(data);
         axios.get('/api/expenses?page='.concat(page.toString())).then(response=>{
-            console.log(response.data);
             this.setState({
                 expenses: response.data
             });
         }).catch(error=>{
-            console.log(error);
         });
     }
 
@@ -146,10 +142,8 @@ class Expense extends React.Component{
     //Create Modal Functions
     handleSaveCreateModel = (data, success)=>{
         if(success === true){
+            this.getExpenses({selected: this.state.expenses.current_page});
             this.setState({
-            });
-            this.setState({
-                expenses: this.state.expenses.concat(data),
                 showCreateModel: false,
                 status: true,
                 danger: false,
@@ -175,7 +169,6 @@ class Expense extends React.Component{
                 }, 3000);
             });
         }
-
     };
 
     showCreateModel = ()=>{
