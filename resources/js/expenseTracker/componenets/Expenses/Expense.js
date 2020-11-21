@@ -146,12 +146,6 @@ class Expense extends React.Component{
     //Create Modal Functions
     handleSaveCreateModel = (data, success)=>{
         if(success === true){
-            // if(this.state.expenses.current_page === this.state.expenses.last_page && this.state.expenses.data)
-            // let index = this.state.index
-            // let Expenses = this.state.expenses;
-            // let oldExpenses = Expenses.data.slice()
-            // oldExpenses.splice(index, 1, data);
-            // Expenses.data = oldExpenses;
             this.getExpenses({selected: this.state.expenses.current_page});
             this.setState({
                 showCreateModel: false,
