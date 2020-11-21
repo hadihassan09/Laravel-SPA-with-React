@@ -21,7 +21,7 @@ class Expense extends React.Component{
     }
 
     componentWillMount() {
-        this.getExpenses({selected: 1});
+        this.getExpenses({selected: 0});
     }
 
     //Pagination:
@@ -63,7 +63,12 @@ class Expense extends React.Component{
             {
                 this.state.expenses.data.map((expense, index) =>
                     <tr key={expense.id}>
-                        <td>{index}</td>
+                        {
+                            this.state.expenses.current_page === 1 ?
+                                <td>{index}</td>
+                                :
+                                <td>{index+1*this.state.expenses.current_page}</td>
+                        }
                         <td>{expense.item}</td>
                         <td>{expense.amount}</td>
                         <td>{expense.price}</td>
