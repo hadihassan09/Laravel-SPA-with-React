@@ -12,13 +12,11 @@ class ExpenseController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        return response()->json(
-            ['expenses' => Expense::where('user_id', $request->user()->id)->with('category')->orderBy('created_at')->get()]
-        );
+        return response(Expense::where('user_id', $request->user()->id)->with('category')->orderBy('created_at')->paginate(4), 200);
     }
 
     /**
