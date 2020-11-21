@@ -6,6 +6,6 @@ export const capitalizeFLetter = (word)=>{
 
 
 export const formatDate = (date)=>{
-    return moment.utc(date).local().format('dddd,DD MMMM, h:mm:ss a');
+    return moment.utc(date).local().format('MMMM D YYYY');
 }
 
