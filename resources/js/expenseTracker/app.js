@@ -30,11 +30,12 @@ class App extends React.Component {
 
     componentDidMount() {
         setInterval(()=>{
-            this.setState({
-                isLoggedIn: appState.isLoggedIn,
-                toHome: false,
-                user: appState.user
-            })
+            if(this.state.isLoggedIn !== appState.isLoggedIn)
+                this.setState({
+                    isLoggedIn: appState.isLoggedIn,
+                    toHome: false,
+                    user: appState.user
+                });
         }, 1000)
     }
 
@@ -99,7 +100,6 @@ class App extends React.Component {
                             <Route exact path="/pieChart" component={PieChart}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/signup" component={SignUp}/>
-
                         </Switch>
                     </div>
                 </Router>
