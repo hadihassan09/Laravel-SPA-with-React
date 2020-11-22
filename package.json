@@ -32,7 +32,6 @@
         "moment": "^2.29.1",
         "preact": "^10.5.7",
         "react-bootstrap": "^1.4.0",
-        "react-js-pagination": "^3.0.3",
         "react-paginate": "^6.5.0",
         "react-router-dom": "^5.2.0"
     }
