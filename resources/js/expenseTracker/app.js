@@ -15,6 +15,7 @@ import Login from './componenets/Login';
 import Home from "./componenets/Home";
 import Expense from './componenets/Expenses/Expense';
 import Categories from "./componenets/Categories/Categories";
+import Error from "./componenets/404";
 import {capitalizeFLetter} from './functions';
 import PieChart from "./componenets/PieChart";
 
@@ -58,6 +59,7 @@ class App extends React.Component {
                             <Route exact path="/" component={Home}/>
                             <Route exact path='/login' component={Login}/>
                             <Route exact path='/signup' component={SignUp}/>
+                            <Route component={Error} />
                         </Switch>
                     </div>
                 </Router>
@@ -100,6 +102,7 @@ class App extends React.Component {
                             <Route exact path="/pieChart" component={PieChart}/>
                             <Route exact path="/login" component={Login}/>
                             <Route exact path="/signup" component={SignUp}/>
+                            <Route component={Error} />
                         </Switch>
                     </div>
                 </Router>
