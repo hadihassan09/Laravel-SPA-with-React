@@ -24,7 +24,8 @@ Route::middleware('auth:sanctum')->get('/expenses', [ExpenseController::class, '
 Route::middleware('auth:sanctum')->post('/expenses/create', [ExpenseController::class, 'store']);
 Route::middleware('auth:sanctum')->get('/expenses/delete/{expense}', [ExpenseController::class, 'destroy']);
 Route::middleware('auth:sanctum')->post('/expenses/update/{expense}', [ExpenseController::class, 'update']);
-
+Route::middleware('auth:sanctum')->post('/expenses/category', [ExpenseController::class, 'filteredByCategory']);
+Route::middleware('auth:sanctum')->post('/expenses/date', [ExpenseController::class, 'filteredByDate']);
 
 //Categories Routes
 Route::middleware('auth:sanctum')->get('/categories', [CategoryController::class, 'index']);

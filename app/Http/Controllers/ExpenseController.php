@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expense;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ExpenseController extends Controller
 {
@@ -16,7 +17,38 @@ class ExpenseController extends Controller
      */
     public function index(Request $request)
     {
-        return response(Expense::where('user_id', $request->user()->id)->with('category')->orderBy('created_at')->paginate(4), 200);
+        return response(Expense::where('user_id', $request->user()->id)
+        ->with('category')
+        ->orderBy('created_at', 'desc')
+        ->paginate(4), 200);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
+    public function filteredByCategory(Request $request){
+        return response(Expense::where('user_id', $request->user()->id)
+        ->where('category_id', $request->category)
+        ->with('category')
+        ->orderBy('created_at', 'desc')
+        ->paginate(4), 200);
+    }
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
+    public function filteredByDate(Request $request){
+        return response(Expense::where('user_id', $request->user()->id)
+        ->whereBetween('created_at',[Date("Y-m-d", $request->start/1000)." 00:00:00", Date("Y-m-d", $request->end/1000)." 23:59:59"])
+        ->with('category')
+        ->orderBy('created_at', 'desc')
+        ->paginate(4), 200);
     }
 
     /**
