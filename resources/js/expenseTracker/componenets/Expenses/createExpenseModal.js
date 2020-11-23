@@ -34,7 +34,7 @@ class CreateExpenseModal extends Component {
         axios.post('/api/expenses/create',{
             name: this.state.name,
             amount: this.state.amount,
-            price: this.state.amount,
+            price: this.state.price,
             category: this.state.category
         }).then(response=>{
             this.setState({
