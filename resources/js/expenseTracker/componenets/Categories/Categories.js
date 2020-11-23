@@ -226,7 +226,7 @@ class Categories extends React.Component{
                             Add Category
                         </a>
                         <div>
-                            <table id="t01">
+                            <table id="t01" style={{width: '98%'}}>
                                 <thead>
                                 <tr>
                                     <th>Category Number</th>
