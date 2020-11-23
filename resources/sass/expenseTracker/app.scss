@@ -3,11 +3,8 @@
     min-height: 20vh;
 }
 #mainBody{
-    height: 75vh;
+    height: 70vh;
     overflow-y: scroll;
-}
-#footer{
-    min-height: 5vh;
 }
 /*END OF MAIN DIV STYLE*/
 
@@ -131,7 +128,6 @@ li a.active {
 table {
     margin-left: auto;
     margin-right: auto;
-    width: 98%;
     border-collapse:separate;
     border-radius:6px;
     -moz-border-radius:6px;
@@ -176,6 +172,23 @@ th{
 }
 
 /*END OF REGISTER DIV STYLE*/
+
+//Filter Style:
+
+.bordershadow{
+    width: auto;
+    height: 52px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+    transition: all 200ms ease-out;
+}
+
+.bordershadow:hover{
+    box-shadow: 0 0 6px rgb(35 173 255);
+    border: solid rgb(35 173 255);
+}
+
 
 
 // Fonts
