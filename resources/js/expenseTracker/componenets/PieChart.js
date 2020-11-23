@@ -27,7 +27,6 @@ class PieChart extends React.Component{
 
     getCategories(){
         axios.get('/api/pieChart').then(response=>{
-            console.log(response.data.data);
             this.setState({
                 data: response.data.data
             })
