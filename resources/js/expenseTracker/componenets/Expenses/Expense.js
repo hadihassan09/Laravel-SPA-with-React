@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
+import ExpenseFilter from "./expenseFilter";
 import CreateExpenseModal from "./createExpenseModal";
 import EditExpenseModal from './editExpenseModal';
 import {formatDate, capitalizeFLetter} from '../../functions';
+import moment from 'moment';
+import PieChart from "../PieChart";
 class Expense extends React.Component{
     constructor(props) {
         super(props);
@@ -16,7 +19,9 @@ class Expense extends React.Component{
             danger: false,
             statusMessage: '',
             showEditModel: false,
-            modalData: null
+            modalData: null,
+            filterType: 0,
+            filterData: null
         }
     }
 
@@ -24,15 +29,52 @@ class Expense extends React.Component{
         this.getExpenses({selected: 0});
     }
 
+    //Filter
+
+    filterData = (type = 0, parameters = null)=>{
+        this.setState({
+            filterType: type,
+            filterData: JSON.stringify(parameters)
+        }, ()=>{
+            this.getExpenses({selected: 0});
+        })
+    }
+
     //Pagination:
-    getExpenses = (data)=>{
-        let page = data.selected >= 0 ? data.selected + 1 : 0;
-        axios.get('/api/expenses?page='.concat(page.toString())).then(response=>{
-            this.setState({
-                expenses: response.data
+    getExpenses = (data)=>{  //Function Returns Expenses depending on Filter Type
+        if(this.state.filterType === 0){ //No Filter
+            let page = data.selected >= 0 ? data.selected + 1 : 0;
+            axios.get('/api/expenses?page='.concat(page.toString())).then(response=>{
+                this.setState({
+                    expenses: response.data
+                });
+            }).catch(error=>{
             });
-        }).catch(error=>{
-        });
+        }
+        if(this.state.filterType === 1){ //filter By Date
+            let dates = JSON.parse(this.state.filterData);
+            let page = data.selected >= 0 ? data.selected + 1 : 0;
+            axios.post('/api/expenses/date?page='.concat(page.toString()), {
+                start: moment.utc(dates.startDate).valueOf(),
+                end: moment.utc(dates.endDate).valueOf()
+            }).then(response=>{
+                this.setState({
+                    expenses: response.data
+                });
+            }).catch(error=>{
+            });
+        }
+        if(this.state.filterType === 2){ //Filter By Category
+            let page = data.selected >= 0 ? data.selected + 1 : 0;
+            axios.post('/api/expenses/category?page='.concat(page.toString()), {
+                category: this.state.filterData.id
+            }).then(response=>{
+                this.setState({
+                    expenses: response.data
+                });
+            }).catch(error=>{
+            });
+        }
     }
 
     renderPagination = ()=>{
@@ -262,33 +304,41 @@ class Expense extends React.Component{
     render() {
         return(
           <div>
-              <div align="center">
+              <div align="center" id={"navBar"}>
                   <h1 style={{textAlign: "center",color: "gray"}}>Welcome To Expense Tracker</h1>
                   <p style={{textAlign: "center",color:"black"}}>Here are the List of Expenses</p>
                   <br/><br/>
                </div>
-              {
-                  this.state.status ?
-                      this.state.danger ?
-                          <div className="alert alert-danger wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
-                              {this.state.statusMessage}
-                          </div>
-                          :
-                          <div className="alert alert-success wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
-                              {this.state.statusMessage}
-                          </div>
-                      : ''
-              }
               <div id="mainBody">
-                  <div>
-                      <a className="addButton" style={{cursor: "pointer"}}
-                          onClick={()=>{
-                            this.showCreateModel()
-                          }}>
-                          Add Expense
-                      </a>
+                  <div style={{width: '34%', float: 'left'}}>
+                      <PieChart />
+                  </div>
+                  <div style={{width: '63%', float: 'right'}}>
+                      {
+                          this.state.status ?
+                              this.state.danger ?
+                                  <div className="alert alert-danger wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
+                                      {this.state.statusMessage}
+                                  </div>
+                                  :
+                                  <div className="alert alert-success wrapper inMiddle" style={{marginTop: 10, textAlign: 'center'}}>
+                                      {this.state.statusMessage}
+                                  </div>
+                              : ''
+                      }
+                      <div className={"row"} style={{width: '98%', margin: "auto"}}>
+                          <div>
+                              <a className="addButton" style={{cursor: "pointer"}}
+                                 onClick={()=>{
+                                     this.showCreateModel()
+                                 }}>
+                                  Add Expense
+                              </a>
+                          </div>
+                          <ExpenseFilter onSearch={this.filterData}/>
+                      </div>
                       <div>
-                          <table id="t01">
+                          <table id="t01" style={{width: '98%'}}>
                               <thead>
                                   <tr>
                                       <th>Item Number</th>
@@ -302,7 +352,9 @@ class Expense extends React.Component{
                               </thead>
                                 {this.state.expenses && this.renderExpenses()}
                           </table>
-                          { this.state.expenses && this.renderPagination() }
+                          <div >
+                              { this.state.expenses && this.renderPagination() }
+                          </div>
                       </div>
                   </div>
               </div>
