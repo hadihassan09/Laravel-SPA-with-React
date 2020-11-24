@@ -43,7 +43,7 @@ class Expense extends React.Component{
     //Pagination:
     getExpenses = (data)=>{  //Function Returns Expenses depending on Filter Type
         if(this.state.filterType === 0){ //No Filter
-            let page = data.selected >= 0 ? data.selected + 1 : 0;
+            let page = data.selected >= 0 ? data.selected + 1 : 1;
             axios.get('/api/expenses?page='.concat(page.toString())).then(response=>{
                 this.setState({
                     expenses: response.data
@@ -53,7 +53,7 @@ class Expense extends React.Component{
         }
         if(this.state.filterType === 1){ //filter By Date
             let dates = JSON.parse(this.state.filterData);
-            let page = data.selected >= 0 ? data.selected + 1 : 0;
+            let page = data.selected >= 0 ? data.selected + 1 : 1;
             axios.post('/api/expenses/date?page='.concat(page.toString()), {
                 start: moment.utc(dates.startDate).valueOf(),
                 end: moment.utc(dates.endDate).valueOf()
@@ -65,9 +65,11 @@ class Expense extends React.Component{
             });
         }
         if(this.state.filterType === 2){ //Filter By Category
-            let page = data.selected >= 0 ? data.selected + 1 : 0;
+            let category = JSON.parse(this.state.filterData);
+            let page = data.selected >= 0 ? data.selected + 1 : 1;
+            console.log(page);
             axios.post('/api/expenses/category?page='.concat(page.toString()), {
-                category: this.state.filterData.id
+                category: category.id
             }).then(response=>{
                 this.setState({
                     expenses: response.data
