@@ -67,7 +67,6 @@ class Expense extends React.Component{
         if(this.state.filterType === 2){ //Filter By Category
             let category = JSON.parse(this.state.filterData);
             let page = data.selected >= 0 ? data.selected + 1 : 1;
-            console.log(page);
             axios.post('/api/expenses/category?page='.concat(page.toString()), {
                 category: category.id
             }).then(response=>{
